@@ -146,4 +146,4 @@ void freeSupemon(Supemon *supemon){
 
 //     freeSupemon(enemy);
 //     return 0;
-// }
+// }4

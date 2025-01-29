@@ -190,6 +190,66 @@ Player *loadSave(char username[32]){
 		}
 	}
 	cJSON_Delete(json);
+	if(current_user == NULL){
+		printf("current_user : NULL\n");
+	}
 	return current_user;
 	
 }
+
+
+
+
+
+
+int saveExist(Player *player){
+
+	// Open the save file
+	FILE *file = fopen("../data.json", "r");
+	if(file == NULL){
+		printf("Je ne trouve pas de fichier");			// Temporary, stand for testing
+		return 0;
+	}
+
+	// Read the whole file
+	fseek(file, 0, SEEK_END);				// Go to the end of the file, get the pose and rewind
+	long int file_size = ftell(file);
+	rewind(file);
+
+	char *txt = malloc(sizeof(char) * (file_size+1));
+	fread(txt, sizeof(char), file_size, file);
+	txt[file_size] = '\0';					// Termination of a string
+	fclose(file);
+
+	// Convert into JSON data and find the username list
+	cJSON *json = cJSON_Parse(txt);
+	free(txt);
+	if(json == NULL){						// Can't convert data to json struct
+		printf("Error parsing JSON: %s\n", cJSON_GetErrorPtr());
+        return 0;
+	}
+	cJSON *users = cJSON_GetObjectItem(json, "users");
+    if (!cJSON_IsArray(users)) {
+        printf("No 'users' array found in the JSON file.\n");
+        cJSON_Delete(json);
+        return 0;
+    }
+
+	// Search the username in the list
+	cJSON *user;
+    cJSON_ArrayForEach(user, users) {	
+		cJSON *user_username = cJSON_GetObjectItem(user, "username");
+		if(strcmp(user_username->valuestring, player->name) == 0){
+			cJSON_Delete(json);
+			return 1;
+		}
+	}
+	cJSON_Delete(json);
+	return 0;
+}
+
+
+
+
+
+

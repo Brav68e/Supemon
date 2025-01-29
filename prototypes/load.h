@@ -6,6 +6,7 @@
 
 
 Player *loadSave(char username[32]);
+int saveExist(Player *player);
 
 
 #endif

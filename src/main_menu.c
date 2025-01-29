@@ -10,23 +10,26 @@
 
 
 
-void main(void){
+int main(void){
 
     // Recuperation du pseudo
     char username[32];
     store_input("Entrez votre nom : ", &username, 32, "str");
-    printf("Vous êtes %s\n", username);
-    fflush(stdout);
 
     // Check dans le json le player
     Player *player = loadSave(username);
-    if(loadSave == NULL){
+    if(player == NULL){
         printf("Erreur");
         // player = createSave(username);
     } else{
         printf("Je vous reconnais ! Vous etes %s\n", player->name);
+        int exist = saveExist(player);
+        if(exist){
+            printf("Le player existe\n");
+        }
     }
 
+    
     int choice = 12;
 
     do{
@@ -60,7 +63,10 @@ void main(void){
                 // Handle errors
         }
     } while(choice != 4);
-    freePlayer(player);
+    if(player != NULL){
+        freePlayer(player);
+    }
+    return 1;
 }
 
 
