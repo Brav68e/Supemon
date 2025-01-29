@@ -123,7 +123,7 @@ Player *loadSave(char username[32]){
 				s->baseAccuracy = baseAccuracy->valueint;
 				s->speed = speed->valueint;
 				s->movesAmount = movesAmount->valueint;
-				s->moves = malloc(sizeof(Move)*4);
+				s->moves = malloc(sizeof(Move)*MAX_MOVES);
 				cJSON *move;
 				int j = 0;
 				cJSON_ArrayForEach(move, moves){
