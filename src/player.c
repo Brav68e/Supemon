@@ -12,14 +12,7 @@ void freePlayer(Player *player) {
         for (int i = 0; i < player->supemonAmount; i++) {
             Supemon *s = &player->supemons[i];
 
-            // Free each move's stat changes (Buffs)
-            for (int j = 0; j < s->movesAmount; j++) {
-                Move *move = &s->moves[j];
-                if (move->buffAmount > 0) {
-                    free(move->statChanges);
-                }
-            }
-            free(s->moves);
+            freeSupemon(s);
         }
     }
 

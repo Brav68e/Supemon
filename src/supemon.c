@@ -123,6 +123,16 @@ Supemon *loadSupemon(char research[32]){
 
 
 
+void freeSupemon(Supemon *supemon){
+
+    free(supemon->moves->statChanges);
+    free(supemon->moves);
+    free(supemon);
+}
+
+
+
+
 // int main(void){
 //     char research[32] = "amogus";
 //     Supemon *enemy = loadSupemon(research);
@@ -134,8 +144,6 @@ Supemon *loadSupemon(char research[32]){
 
 //     printf("Le Pokémon chargé est %s, il est niveau %d\n", enemy->name, enemy->level);
 
-//     free(enemy->moves->statChanges);
-//     free(enemy->moves);
-//     free(enemy);
+//     freeSupemon(enemy);
 //     return 0;
 // }

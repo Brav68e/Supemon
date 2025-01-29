@@ -31,4 +31,9 @@ typedef struct{
     int movesAmount;
 } Supemon;
 
+
+
+void freeSupemon(Supemon *supemon);
+Supemon *loadSupemon(char research[32]);
+
 #endif
