@@ -1,0 +1,81 @@
+{
+    "supemons": [
+        {
+            "name": "Flameon",
+            "level": 10,
+            "nextLevel": 100,
+            "hp": 50,
+            "maxHp": 50,
+            "atk": 15,
+            "baseAtk": 10,
+            "def": 12,
+            "baseDef": 10,
+            "dodge": 8,
+            "baseDodge": 5,
+            "accuracy": 90,
+            "baseAccuracy": 85,
+            "speed": 20,
+            "movesAmount": 2,
+            "moves": [
+            {
+                "name": "Fire Punch",
+                "dmg": 25,
+                "buffAmount": 1,
+                "statChanges": [
+                    {
+                    "stat": "atk",
+                    "value": 2
+                    }
+                ]
+            },
+            {
+                "name": "Flame Thrower",
+                "dmg": 40,
+                "buffAmount": 0,
+                "statChanges": []
+            }
+            ]
+        },
+        {
+            "name": "Aqualio",
+            "level": 10,
+            "nextLevel": 100,
+            "hp": 50,
+            "maxHp": 50,
+            "atk": 15,
+            "baseAtk": 10,
+            "def": 12,
+            "baseDef": 10,
+            "dodge": 8,
+            "baseDodge": 5,
+            "accuracy": 90,
+            "baseAccuracy": 85,
+            "speed": 20,
+            "movesAmount": 2,
+            "moves": [
+            {
+                "name": "Sigma Punch",
+                "dmg": 75,
+                "buffAmount": 1,
+                "statChanges": [
+                    {
+                    "stat": "atk",
+                    "value": 66
+                    }
+                ]
+            },
+            {
+                "name": "Skibidi Thrower",
+                "dmg": 5,
+                "buffAmount": 0,
+                "statChanges": [
+                    {
+                        "stat": "def",
+                        "value": 666
+                    }
+                ]
+            }
+            ]
+        }
+    ]
+}
