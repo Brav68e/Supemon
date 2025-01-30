@@ -22,7 +22,7 @@ int main(void){
         printf("Erreur");
         // player = createSave(username);
     } else{
-        printf("Je vous reconnais ! Vous etes %s\n", player->name);
+        printf("Je vous reconnais ! Vous etes %s, vous avez %s avec le move %s\n", player->name, player->supemons[0].name, player->supemons[0].moves[0].name);
         int exist = saveExist(player);
         if(exist){
             printf("Le player existe\n");

@@ -1,6 +1,7 @@
 {
     "supemons": [
         {
+            "id" : 5,
             "name": "Flameon",
             "level": 10,
             "nextLevel": 100,
@@ -37,6 +38,7 @@
             ]
         },
         {
+            "id" : 6,
             "name": "Aqualio",
             "level": 10,
             "nextLevel": 100,

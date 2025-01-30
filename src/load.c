@@ -69,64 +69,9 @@ Player *loadSave(char username[32]){
 			current_user->supemons = malloc(sizeof(Supemon) * MAX_SUPEMON);
 			int i = 0;
 			cJSON_ArrayForEach(supemon, supemons) {
-				cJSON *name = cJSON_GetObjectItem(supemon, "name");
-				cJSON *level = cJSON_GetObjectItem(supemon, "level");
-				cJSON *nextLevel = cJSON_GetObjectItem(supemon, "nextLevel");
-				cJSON *hp = cJSON_GetObjectItem(supemon, "hp");
-				cJSON *maxHp = cJSON_GetObjectItem(supemon, "maxHp");
-				cJSON *atk = cJSON_GetObjectItem(supemon, "atk");
-				cJSON *baseAtk = cJSON_GetObjectItem(supemon, "baseAtk");
-				cJSON *def = cJSON_GetObjectItem(supemon, "def");
-				cJSON *baseDef = cJSON_GetObjectItem(supemon, "baseDef");
-				cJSON *dodge = cJSON_GetObjectItem(supemon, "dodge");
-				cJSON *baseDodge = cJSON_GetObjectItem(supemon, "baseDodge");
-				cJSON *accuracy = cJSON_GetObjectItem(supemon, "accuracy");
-				cJSON *baseAccuracy = cJSON_GetObjectItem(supemon, "baseAccuracy");
-				cJSON *speed = cJSON_GetObjectItem(supemon, "speed");
-				cJSON *moves = cJSON_GetObjectItem(supemon, "moves");
-				cJSON *movesAmount = cJSON_GetObjectItem(supemon, "movesAmount");
-
-				Supemon *s = &current_user->supemons[i];
-				strcpy(s->name , name->valuestring);
-				s->level = level->valueint;
-				s->nextLevel = nextLevel->valueint;
-				s->hp = hp->valueint;
-				s->maxHp = maxHp->valueint;
-				s->atk = atk->valueint;
-				s->baseAtk = baseAtk->valueint;
-				s->def = def->valueint;
-				s->baseDef = baseDef->valueint;
-				s->dodge = dodge->valueint;
-				s->baseDodge = baseDodge->valueint;
-				s->accuracy = accuracy->valueint;
-				s->baseAccuracy = baseAccuracy->valueint;
-				s->speed = speed->valueint;
-				s->movesAmount = movesAmount->valueint;
-				s->moves = malloc(sizeof(Move)*MAX_MOVES);
-				cJSON *move;
-				int j = 0;
-				cJSON_ArrayForEach(move, moves){
-					Move *m = &s->moves[j];
-					cJSON *name = cJSON_GetObjectItem(move, "name");
-					cJSON *dmg = cJSON_GetObjectItem(move, "dmg");
-					cJSON *buffAmount = cJSON_GetObjectItem(move, "buffAmount");
-					cJSON *buffs = cJSON_GetObjectItem(move, "statChanges");
-					strcpy(m->name , name->valuestring);
-					m->dmg = dmg->valueint;
-					m->buffAmount = buffAmount->valueint;
-					m->statChanges = malloc(sizeof(Buff)*buffAmount->valueint);
-					cJSON *buff;
-					int k = 0;
-					cJSON_ArrayForEach(buff, buffs){
-						Buff *b = &m->statChanges[k];
-						cJSON *stat = cJSON_GetObjectItem(buff, "stat");
-						cJSON *value = cJSON_GetObjectItem(buff, "value");
-						strcpy(b->stat , stat->valuestring);
-						b->value = value->valueint;
-						k++;
-					}
-					j++;
-				}
+				Supemon *loaded = loadSupemon_data(supemon);
+				current_user->supemons[i] = *loaded;
+				free(loaded);
 				i++;
 			}
 
@@ -169,11 +114,7 @@ Player *loadSave(char username[32]){
 		}
 	}
 	cJSON_Delete(json);
-	if(current_user == NULL){
-		printf("current_user : NULL\n");
-	}
 	return current_user;
-	
 }
 
 

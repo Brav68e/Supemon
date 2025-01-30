@@ -7,6 +7,7 @@
         "supemonAmount": 1,
         "supemons": [
           {
+            "id" : 5,
             "name": "Flameon",
             "level": 10,
             "nextLevel": 100,
