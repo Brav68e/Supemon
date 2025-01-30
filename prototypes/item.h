@@ -17,4 +17,6 @@ typedef struct{
 } Iteminfo;
 
 
+Item *loadItem(cJSON *item);
+
 #endif
