@@ -38,5 +38,6 @@ typedef struct{
 void freeSupemon(Supemon *supemon);
 Supemon *loadSupemon(int researchID);
 Supemon *loadSupemon_data(cJSON *supemon);
+cJSON *saveSupemon_data(Supemon*supemon);
 
 #endif

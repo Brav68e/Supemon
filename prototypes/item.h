@@ -18,5 +18,6 @@ typedef struct{
 
 
 Item *loadItem(cJSON *item);
+cJSON *saveItem(Item *item);
 
 #endif

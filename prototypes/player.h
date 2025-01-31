@@ -14,5 +14,6 @@ typedef struct{
 
 
 void freePlayer(Player *player);
+Player *loadPlayer(cJSON *player);
 
 #endif

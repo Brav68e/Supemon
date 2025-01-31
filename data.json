@@ -1,7 +1,7 @@
 {
     "users": [
       {
-        "username": "Player1",
+        "name": "Player1",
         "coins": 1000,
         "itemAmount": 1,
         "supemonAmount": 1,

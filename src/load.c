@@ -51,48 +51,11 @@ Player *loadSave(char username[32]){
 	Player *current_user = NULL;
 	cJSON *user;
     cJSON_ArrayForEach(user, users) {	
-		cJSON *user_username = cJSON_GetObjectItem(user, "username");
+		cJSON *user_username = cJSON_GetObjectItem(user, "name");
 		if(strcmp(user_username->valuestring, username) == 0){
-			// Creation du player
-			current_user = malloc(sizeof(Player));
-			strcpy(current_user->name , user_username->valuestring);
-			cJSON *coins = cJSON_GetObjectItem(user, "coins");
-			cJSON *supemonAmount = cJSON_GetObjectItem(user, "supemonAmount");
-			cJSON *itemAmount = cJSON_GetObjectItem(user, "itemAmount");
-			current_user->itemAmount = itemAmount->valueint;
-			current_user->coins = coins->valueint;
-			current_user->supemonAmount = supemonAmount->valueint;
-
-			// Creation des Supemons
-			cJSON *supemons = cJSON_GetObjectItem(user, "supemons");
-			cJSON *supemon;
-			current_user->supemons = malloc(sizeof(Supemon) * MAX_SUPEMON);
-			int i = 0;
-			cJSON_ArrayForEach(supemon, supemons) {
-				Supemon *loaded = loadSupemon_data(supemon);
-				current_user->supemons[i] = *loaded;
-				free(loaded);
-				i++;
-			}
-
-			// Load iteminfos
-			cJSON *iteminfo;
-			cJSON *itemsinfo_array = cJSON_GetObjectItem(user, "items");
-			current_user->items = malloc(sizeof(Iteminfo) * INGAME_ITEMS);
-			int m = 0;
-			cJSON_ArrayForEach(iteminfo, itemsinfo_array){
-				Iteminfo *ii = &current_user->items[m];
-				cJSON *amount = cJSON_GetObjectItem(iteminfo, "amount");
-				cJSON *item = cJSON_GetObjectItem(iteminfo, "item");
-				ii->amount = amount->valueint;
-
-				// Load proper items
-				Item *loaded = loadItem(item);
-				ii->item = loaded;
-				m++;
-			}
-
-			break;			// Found the user
+			// Found the user
+			current_user = loadPlayer(user);
+			break;	
 		}
 	}
 	cJSON_Delete(json);
@@ -119,7 +82,7 @@ int saveExist(Player *player){
 	// Search the username in the list
 	cJSON *user;
     cJSON_ArrayForEach(user, users) {	
-		cJSON *user_username = cJSON_GetObjectItem(user, "username");
+		cJSON *user_username = cJSON_GetObjectItem(user, "name");
 		if(strcmp(user_username->valuestring, player->name) == 0){
 			cJSON_Delete(json);
 			return 1;

@@ -113,6 +113,65 @@ Supemon *loadSupemon_data(cJSON *supemon){
 
 
 
+cJSON *saveSupemon_data(Supemon *supemon){
+
+    // Create the supemon object
+    cJSON *s = cJSON_CreateObject();
+
+    // Add datas
+    cJSON_AddNumberToObject(s, "id", supemon->id);
+    cJSON_AddStringToObject(s, "name", supemon->name);
+    cJSON_AddNumberToObject(s, "level", supemon->level);
+    cJSON_AddNumberToObject(s, "nextLevel", supemon->nextLevel);
+    cJSON_AddNumberToObject(s, "xp", supemon->xp);
+    cJSON_AddNumberToObject(s, "hp", supemon->hp);
+    cJSON_AddNumberToObject(s, "maxHp", supemon->maxHp);
+    cJSON_AddNumberToObject(s, "atk", supemon->atk);
+    cJSON_AddNumberToObject(s, "baseAtk", supemon->baseAtk);
+    cJSON_AddNumberToObject(s, "def", supemon->def);
+    cJSON_AddNumberToObject(s, "baseDef", supemon->baseDef);
+    cJSON_AddNumberToObject(s, "dodge", supemon->dodge);
+    cJSON_AddNumberToObject(s, "baseDodge", supemon->baseDodge);
+    cJSON_AddNumberToObject(s, "accuracy", supemon->accuracy);
+    cJSON_AddNumberToObject(s, "baseAccuracy", supemon->baseAccuracy);
+    cJSON_AddNumberToObject(s, "speed", supemon->speed);
+    cJSON_AddNumberToObject(s, "movesAmount", supemon->movesAmount);
+
+    // Create an array for moves
+    cJSON *moves = cJSON_CreateArray();
+    for(int i=0; i<supemon->movesAmount; i++){
+        cJSON *move = cJSON_CreateObject();
+        cJSON_AddStringToObject(move, "name", supemon->moves[i].name);
+        cJSON_AddNumberToObject(move, "dmg", supemon->moves[i].dmg);
+        cJSON *buffs = cJSON_CreateArray();
+        // Add Buff effects to the move
+        for(int j=0; j<supemon->moves[i].buffAmount; j++){
+            cJSON *buff = cJSON_CreateObject();
+            cJSON_AddStringToObject(buff, "stat", supemon->moves[i].statChanges[j].stat);
+            cJSON_AddNumberToObject(buff, "value", supemon->moves[i].statChanges[j].value);
+            cJSON_AddItemToArray(buffs, buff);
+        }
+        cJSON_AddItemToObject(moves, "statChanges", buffs);
+    }
+    cJSON_AddItemToObject(s, "moves", moves);
+    return s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void freeSupemon(Supemon *supemon){
 
