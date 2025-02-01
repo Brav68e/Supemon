@@ -177,7 +177,10 @@ cJSON *saveSupemon_data(Supemon *supemon){
 
 void freeSupemon(Supemon *supemon){
 
-    free(supemon->moves->statChanges);
+    // Loop through all moves and free their statChanges
+    for (int i = 0; i < supemon->movesAmount; i++) {
+        free(supemon->moves[i].statChanges);
+    }
     free(supemon->moves);
     free(supemon);
 }

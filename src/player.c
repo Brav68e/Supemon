@@ -18,7 +18,6 @@ void freePlayer(Player *player) {
         }
     }
 
-    free(player->supemons);
 
     // Free each items
     if (player->items != NULL) {

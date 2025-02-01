@@ -71,8 +71,8 @@ int main(void){
     } while(choice != 4);
 
     // Save du player
-    deleteData(player);
-    saveData(player);
+    // deleteData(player);             // If the player was existing delete his save
+    // saveData(player);               // Save the current player struct
 
     if(player != NULL){
         freePlayer(player);
