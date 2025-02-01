@@ -72,7 +72,7 @@ Player *loadPlayer(cJSON *user){
         ii->amount = amount->valueint;
 
         // Load proper items
-        Item *loaded = loadItem(item);
+        Item *loaded = loadItem_data(item);
         ii->item = loaded;
         m++;
     }

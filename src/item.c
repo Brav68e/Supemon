@@ -6,16 +6,18 @@
 
 
 
-Item *loadItem(cJSON *item){
+Item *loadItem_data(cJSON *item){
 
     // Get the datas
     Item *it = malloc(sizeof(Item));
     cJSON *name = cJSON_GetObjectItem(item, "name");
+    cJSON *id = cJSON_GetObjectItem(item, "id");
     cJSON *price = cJSON_GetObjectItem(item, "price");
     cJSON *buffAmount = cJSON_GetObjectItem(item, "buffAmount");
     cJSON *buffs_array = cJSON_GetObjectItem(item, "statChanges");
     // Copy all datas
     strcpy(it->name , name->valuestring);
+    it->id = id->valueint;
     it->price = price->valueint;
     it->buffAmount = buffAmount->valueint;
     it->statChanges = malloc(sizeof(Buff) * buffAmount->valueint);
@@ -42,6 +44,7 @@ cJSON *saveItem(Item *item){
     cJSON *it = cJSON_CreateObject();
 
     // Add datas
+    cJSON_AddNumberToObject(it, "id", item->id);
     cJSON_AddStringToObject(it, "name", item->name);
     cJSON_AddNumberToObject(it, "price", item->price);
     cJSON_AddNumberToObject(it, "buffAmount", item->buffAmount);

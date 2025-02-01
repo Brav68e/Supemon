@@ -165,18 +165,6 @@ cJSON *saveSupemon_data(Supemon *supemon){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 void freeSupemon(Supemon *supemon){
 
     // Loop through all moves and free their statChanges
@@ -186,21 +174,3 @@ void freeSupemon(Supemon *supemon){
     free(supemon->moves);
     free(supemon);
 }
-
-
-
-
-// int main(void){
-//     int researchID = 6;
-//     Supemon *enemy = loadSupemon(researchID);
-
-//     if (enemy == NULL) {
-//         printf("Erreur: Supemon non trouvé\n");
-//         return 1;
-//     }
-
-//     printf("Le Pokémon chargé est %s, il est niveau %d, il posséde %s\n", enemy->name, enemy->level, enemy->moves[0].name);
-
-//     freeSupemon(enemy);
-//     return 0;
-// }

@@ -40,62 +40,13 @@
 			"items":	[{
 					"amount":	3,
 					"item":	{
-						"name":	"Healing Potion",
-						"price":	50,
+						"id":	1,
+						"name":	"Potion",
+						"price":	100,
 						"buffAmount":	1,
 						"statChanges":	[{
 								"stat":	"hp",
-								"value":	10
-							}]
-					}
-				}]
-		}, {
-			"name":	"brav68e",
-			"coins":	200,
-			"supemonAmount":	1,
-			"itemAmount":	1,
-			"supemons":	[{
-					"id":	5,
-					"name":	"Flameon",
-					"level":	10,
-					"nextLevel":	100,
-					"xp":	0,
-					"hp":	50,
-					"maxHp":	50,
-					"atk":	15,
-					"baseAtk":	10,
-					"def":	12,
-					"baseDef":	10,
-					"dodge":	8,
-					"baseDodge":	5,
-					"accuracy":	90,
-					"baseAccuracy":	85,
-					"speed":	20,
-					"movesAmount":	2,
-					"moves":	[{
-							"name":	"Fire Punch",
-							"dmg":	25,
-							"buffAmount":	1,
-							"statChanges":	[{
-									"stat":	"atk",
-									"value":	2
-								}]
-						}, {
-							"name":	"Flame Thrower",
-							"dmg":	40,
-							"buffAmount":	0,
-							"statChanges":	[]
-						}]
-				}],
-			"items":	[{
-					"amount":	3,
-					"item":	{
-						"name":	"Healing Potion",
-						"price":	50,
-						"buffAmount":	1,
-						"statChanges":	[{
-								"stat":	"hp",
-								"value":	10
+								"value":	5
 							}]
 					}
 				}]

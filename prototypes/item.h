@@ -3,6 +3,7 @@
 #include "supemon.h"
 
 typedef struct{
+    int id;
     char name[32];
     int price;
     int buffAmount;
@@ -17,7 +18,7 @@ typedef struct{
 } Iteminfo;
 
 
-Item *loadItem(cJSON *item);
+Item *loadItem_data(cJSON *item);
 cJSON *saveItem(Item *item);
 
 #endif
