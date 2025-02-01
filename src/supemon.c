@@ -60,6 +60,8 @@ Supemon *loadSupemon_data(cJSON *supemon){
     cJSON *moves_array = cJSON_GetObjectItem(supemon, "moves");
     // Recreation of the struct
     Supemon *s = malloc(sizeof(Supemon));
+    memset(s, 0, sizeof(Supemon));          // Fill the allocated memory with 0 (valgrind won't cry anymore)
+
     strcpy(s->name , name->valuestring);
     s->id = id->valueint;
     s->level = level->valueint;
@@ -77,7 +79,7 @@ Supemon *loadSupemon_data(cJSON *supemon){
     s->speed = speed->valueint;
     s->movesAmount = movesAmount->valueint;
 
-    s->moves = malloc(sizeof(Move)*MAX_MOVES);
+    s->moves = malloc(sizeof(Move)*movesAmount->valueint);
     cJSON *move;
     int i = 0;
     cJSON_ArrayForEach(move, moves_array) {	

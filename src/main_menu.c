@@ -32,7 +32,7 @@ int main(void){
 
 
     // Modification du nom de joueur
-    strcpy(player->name, "brav68e");
+    // strcpy(player->name, "brav68e");
 
 
     
@@ -71,8 +71,8 @@ int main(void){
     } while(choice != 4);
 
     // Save du player
-    // deleteData(player);             // If the player was existing delete his save
-    // saveData(player);               // Save the current player struct
+    deleteData(player);             // If the player was existing delete his save
+    saveData(player);               // Save the current player struct
 
     if(player != NULL){
         freePlayer(player);
