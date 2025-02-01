@@ -13,19 +13,19 @@ Item *loadItem(cJSON *item){
     cJSON *name = cJSON_GetObjectItem(item, "name");
     cJSON *price = cJSON_GetObjectItem(item, "price");
     cJSON *buffAmount = cJSON_GetObjectItem(item, "buffAmount");
-    cJSON *buffs_array = cJSON_GetObjectItem(item, "usage");
+    cJSON *buffs_array = cJSON_GetObjectItem(item, "statChanges");
     // Copy all datas
     strcpy(it->name , name->valuestring);
     it->price = price->valueint;
     it->buffAmount = buffAmount->valueint;
-    it->usage = malloc(sizeof(Buff) * buffAmount->valueint);
+    it->statChanges = malloc(sizeof(Buff) * buffAmount->valueint);
     // Handling buffs
     cJSON *buff;
     int n = 0;
     cJSON_ArrayForEach(buff, buffs_array){
         cJSON *stat = cJSON_GetObjectItem(buff, "stat");
         cJSON *value = cJSON_GetObjectItem(buff, "value");
-        Buff *usage = &it->usage[n];
+        Buff *usage = &it->statChanges[n];
         strcpy(usage->stat , stat->valuestring);
         usage->value = value->valueint;
         n++;
@@ -50,8 +50,8 @@ cJSON *saveItem(Item *item){
     cJSON *buffs = cJSON_CreateArray();
     for(int i=0; i<item->buffAmount; i++){
         cJSON *buff = cJSON_CreateObject();
-        cJSON_AddStringToObject(buff, "stat", item->usage[i].stat);
-        cJSON_AddNumberToObject(buff, "value", item->usage[i].value);
+        cJSON_AddStringToObject(buff, "stat", item->statChanges[i].stat);
+        cJSON_AddNumberToObject(buff, "value", item->statChanges[i].value);
         cJSON_AddItemToArray(buffs, buff);
     }
     

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 // Include all needed files
 #include "../prototypes/input.h"
 #include "../prototypes/item.h"
@@ -28,6 +29,11 @@ int main(void){
             printf("Le player existe\n");
         }
     }
+
+
+    // Modification du nom de joueur
+    strcpy(player->name, "brav68e");
+
 
     
     int choice = 12;
@@ -63,6 +69,11 @@ int main(void){
                 // Handle errors
         }
     } while(choice != 4);
+
+    // Save du player
+    deleteData(player);
+    saveData(player);
+
     if(player != NULL){
         freePlayer(player);
     }

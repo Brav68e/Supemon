@@ -6,7 +6,7 @@ typedef struct{
     char name[32];
     int price;
     int buffAmount;
-    Buff *usage;
+    Buff *statChanges;
 } Item;
 
 

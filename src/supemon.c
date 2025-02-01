@@ -143,6 +143,7 @@ cJSON *saveSupemon_data(Supemon *supemon){
         cJSON *move = cJSON_CreateObject();
         cJSON_AddStringToObject(move, "name", supemon->moves[i].name);
         cJSON_AddNumberToObject(move, "dmg", supemon->moves[i].dmg);
+        cJSON_AddNumberToObject(move, "buffAmount", supemon->moves[i].buffAmount);
         cJSON *buffs = cJSON_CreateArray();
         // Add Buff effects to the move
         for(int j=0; j<supemon->moves[i].buffAmount; j++){
@@ -151,7 +152,8 @@ cJSON *saveSupemon_data(Supemon *supemon){
             cJSON_AddNumberToObject(buff, "value", supemon->moves[i].statChanges[j].value);
             cJSON_AddItemToArray(buffs, buff);
         }
-        cJSON_AddItemToObject(moves, "statChanges", buffs);
+        cJSON_AddItemToObject(move, "statChanges", buffs);
+        cJSON_AddItemToArray(moves, move);
     }
     cJSON_AddItemToObject(s, "moves", moves);
     return s;

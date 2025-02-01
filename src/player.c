@@ -24,7 +24,7 @@ void freePlayer(Player *player) {
     if (player->items != NULL) {
         for (int i = 0; i < player->itemAmount; i++) {
             Iteminfo *iteminfo = &player->items[i];
-            free(iteminfo->item->usage);
+            free(iteminfo->item->statChanges);
             free(iteminfo->item);
         }
         free(player->items);  // Free the iteminfo
