@@ -1,5 +1,6 @@
 #ifndef SUPEMON_H
 #define SUPEMON_H
+#include "cJSON.H"
 
 typedef struct{
     char stat[16];      // Ex : atk
@@ -18,6 +19,7 @@ typedef struct{
 
 
 typedef struct{
+    int id;
     char name[32];
     int level, nextLevel;
     int xp;
@@ -30,5 +32,12 @@ typedef struct{
     Move *moves;
     int movesAmount;
 } Supemon;
+
+
+
+void freeSupemon(Supemon *supemon);
+Supemon *loadSupemon(int researchID);
+Supemon *loadSupemon_data(cJSON *supemon);
+cJSON *saveSupemon_data(Supemon*supemon);
 
 #endif

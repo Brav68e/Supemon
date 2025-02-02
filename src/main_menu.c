@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 // Include all needed files
 #include "../prototypes/input.h"
 #include "../prototypes/item.h"
@@ -10,23 +11,31 @@
 
 
 
-void main(void){
+int main(void){
 
     // Recuperation du pseudo
     char username[32];
     store_input("Entrez votre nom : ", &username, 32, "str");
-    printf("Vous êtes %s\n", username);
-    fflush(stdout);
 
     // Check dans le json le player
     Player *player = loadSave(username);
-    if(loadSave == NULL){
+    if(player == NULL){
         printf("Erreur");
         // player = createSave(username);
     } else{
-        printf("Je vous reconnais ! Vous etes %s\n", player->name);
+        printf("Je vous reconnais ! Vous etes %s, vous avez %s avec le move %s\n", player->name, player->supemons[0].name, player->supemons[0].moves[0].name);
+        int exist = saveExist(player);
+        if(exist){
+            printf("Le player existe\n");
+        }
     }
 
+
+    // Modification du nom de joueur
+    // strcpy(player->name, "brav68e");
+
+
+    
     int choice = 12;
 
     do{
@@ -60,7 +69,15 @@ void main(void){
                 // Handle errors
         }
     } while(choice != 4);
-    freePlayer(player);
+
+    // Save du player
+    deleteData(player);             // If the player was existing delete his save
+    saveData(player);               // Save the current player struct
+
+    if(player != NULL){
+        freePlayer(player);
+    }
+    return 1;
 }
 
 
