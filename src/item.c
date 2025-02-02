@@ -2,6 +2,40 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../prototypes/item.h"
+#include "../prototypes/load.h"
+
+
+
+
+Item *loadItem(int researchID){
+
+    // Open the save file
+	cJSON *json = loadJSON("../item.json");
+
+	cJSON *items_array = cJSON_GetObjectItem(json, "items");
+    if (!items_array) {
+        printf("Error: 'items' key not found\n");
+        return NULL;
+    }
+    
+    // Seek for a specific item
+    Item *it = NULL;
+	cJSON *item;
+    cJSON_ArrayForEach(item, items_array) {	
+		cJSON *id = cJSON_GetObjectItem(item, "id");
+        // If we found a matching name, create and return the Supemon
+		if(id->valueint == researchID){
+            // Get all datas 
+            it = loadItem_data(item);
+            cJSON_Delete(json);
+            return it;
+        }
+    }
+    cJSON_Delete(json);
+    return it;
+}
+
+
 
 
 
@@ -60,4 +94,15 @@ cJSON *saveItem(Item *item){
     
     cJSON_AddItemToObject(it, "statChanges", buffs);
     return it;
+}
+
+
+
+
+void freeItem(Item *item){
+
+    if(item != NULL){
+        free(item->statChanges);
+        free(item);
+    }
 }

@@ -20,5 +20,7 @@ typedef struct{
 
 Item *loadItem_data(cJSON *item);
 cJSON *saveItem(Item *item);
+void freeItem(Item *item);
+Item *loadItem(int researchID);
 
 #endif

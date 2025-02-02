@@ -1,6 +1,7 @@
 #include "../prototypes/player.h"
 #include "../prototypes/cJSON.h"
 #include "../prototypes/const.h"
+#include "../prototypes/item.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -23,8 +24,7 @@ void freePlayer(Player *player) {
     if (player->items != NULL) {
         for (int i = 0; i < player->itemAmount; i++) {
             Iteminfo *iteminfo = &player->items[i];
-            free(iteminfo->item->statChanges);
-            free(iteminfo->item);
+            freeItem(iteminfo->item);
         }
         free(player->items);  // Free the iteminfo
     }
