@@ -35,3 +35,14 @@ void displayShopMenu(Player *player) {
         }
     } while (choice != SHOP_EXIT);
 }
+
+void displayAvailableItems() {
+    printf("\nAvailable Items:\n");
+    for (int i = 0; i < MAX_SHOP_ITEMS; i++) {
+        Item *item = loadItem(shopItemIds[i]);
+        if (item) {
+            printf("%d. %s - Price: %d Supcoins\n", i + 1, item->name, item->price);
+            freeItem(item);
+        }
+    }
+}
