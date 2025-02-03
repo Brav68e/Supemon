@@ -1,7 +1,7 @@
 {
     "supemons": [
         {
-            "id" : 5,
+            "id" : 1,
             "name": "Flameon",
             "level": 10,
             "nextLevel": 100,
@@ -38,7 +38,7 @@
             ]
         },
         {
-            "id" : 6,
+            "id" : 2,
             "name": "Aqualio",
             "level": 10,
             "nextLevel": 100,
@@ -69,7 +69,7 @@
             {
                 "name": "Skibidi Thrower",
                 "dmg": 5,
-                "buffAmount": 0,
+                "buffAmount": 1,
                 "statChanges": [
                     {
                         "stat": "def",
