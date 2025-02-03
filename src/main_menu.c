@@ -17,7 +17,7 @@ int main(void){
 
     // Recuperation du pseudo
     char username[32];
-    store_input("Entrez votre nom : ", username, 32, "str");
+    store_input("Enter your username : ", username, 32, "str");
 
     // Check dans le json le player
     Player *player = loadSave(username);
@@ -26,17 +26,16 @@ int main(void){
         Supemon *starter = starterChoice();
         player = createPlayer(username, starter);
     } else{
-        printf("Je vous reconnais ! Vous etes %s, vous avez %s avec le move %s\n", player->name, player->supemons[0].name, player->supemons[0].moves[0].name);
+        displayOldplayer();
     }
 
 
     
     int choice;
+    displayMainmenu();
 
     do{
-        store_input("Entrez un nombre : ", &choice, 16, "int");
-        // printf("feur");
-        // scanf("%d", &choice);
+        store_input("1, 2, 3 ou 4 : ", &choice, 16, "int");
 
         switch(choice){
 
