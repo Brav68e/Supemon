@@ -14,5 +14,6 @@ typedef enum {
 // Function prototypes for shop operations
 void displayShopMenu(Player *player);
 void displayAvailableItems();
+void buyItemMenu(Player *player);
 
 #endif

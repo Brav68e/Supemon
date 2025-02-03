@@ -46,3 +46,54 @@ void displayAvailableItems() {
         }
     }
 }
+
+void buyItemMenu(Player *player) {
+    displayAvailableItems();
+    
+    int choice;
+    printf("Enter the number of the item to buy (0 to cancel): ");
+    scanf("%d", &choice);
+
+    if (choice < 1 || choice > MAX_SHOP_ITEMS) {
+        if (choice != 0) printf("Invalid item selection.\n");
+        return;
+    }
+
+    Item *selectedItem = loadItem(shopItemIds[choice - 1]);
+    if (!selectedItem) {
+        printf("Error loading item.\n");
+        return;
+    }
+
+    if (player->coins < selectedItem->price) {
+        printf("Not enough Supcoins to buy %s!\n", selectedItem->name);
+        freeItem(selectedItem);
+        return;
+    }
+
+    int found = 0;
+    for (int i = 0; i < player->itemAmount; i++) {
+        if (player->items[i].item->id == selectedItem->id) {
+            player->items[i].amount++;
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        if (player->itemAmount < INGAME_ITEMS) {
+            player->items[player->itemAmount].item = selectedItem;
+            player->items[player->itemAmount].amount = 1;
+            player->itemAmount++;
+        } else {
+            printf("Inventory is full. Cannot add more items.\n");
+            freeItem(selectedItem);
+            return;
+        }
+    } else {
+        freeItem(selectedItem);
+    }
+
+    player->coins -= selectedItem->price;
+    printf("Bought %s for %d Supcoins!\n", selectedItem->name, selectedItem->price);
+}
