@@ -7,6 +7,8 @@
 #include "../prototypes/supemon.h"
 #include "../prototypes/player.h"
 #include "../prototypes/load.h"
+#include "../prototypes/shop.h"
+
 
 
 
@@ -53,7 +55,7 @@ int main(void){
             case 2:
                 // Select to go to the shop
                 // shop(player);
-                printf("just 2");
+                displayShopMenu(player);
                 break;
             case 3:
                 // Select to go to the supemon center
