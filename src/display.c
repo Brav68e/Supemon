@@ -25,3 +25,22 @@ void displayBattlemenu(void){
 
     write(1, msg, 224);
 }
+
+
+
+Item *displayItems(Player *player, int itemAvailable){
+    
+    Item *items = malloc(sizeof(Item) * itemAvailable);
+    int current = 0;
+
+    for(int i=0; i<player->itemAmount; i++){
+        if(player->items[i].amount > 0){
+            Item *item = player->items[i].item;
+            printf("| %d - %s (X%d)\n", current, item.name, player->items[i].amount);
+            items[current] = *item;
+            current++;
+        }
+    }
+
+    return items;
+}
