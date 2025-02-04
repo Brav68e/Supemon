@@ -31,7 +31,7 @@ void displayBattlemenu(void){
 Item *displayItems(Player *player, int itemAvailable){
     
     Item *items = malloc(sizeof(Item) * itemAvailable);
-    int current = 0;
+    int current = 1;
 
     for(int i=0; i<player->itemAmount; i++){
         if(player->items[i].amount > 0){
@@ -43,4 +43,33 @@ Item *displayItems(Player *player, int itemAvailable){
     }
 
     return items;
+}
+
+
+
+int *displaySupemons(Player *player, int amount){
+
+    int *supemonsIndex = malloc(sizeof(int) * amount);
+    int current = 1;
+
+    for(int i=1; i<player->supemonAmount; i++){
+        if(player->supemon[i].hp > 0){
+            printf("| %d - %s (Hp : %d)\n", current, player->supemon[i].name, player->supemon[i].hp);
+            supemonsIndex[current] = i;
+            current++;
+        }
+    }
+
+    return supemonsIndex;
+}
+
+
+
+void displayMoves(Supemon *supemon){
+
+    for(int i=0; i<supemon->movesAmount; i++){
+        printf("%d | %s (%d dmg)", i+1, supemon->moves[i].name, supemon->moves[i].dmg)
+    }
+
+
 }
