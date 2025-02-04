@@ -47,7 +47,7 @@ int main(void){
 
             case 1:
                 // Select to battle a random enemy
-                // battle(player);
+                battle(player);
                 printf("just 1");
                 break;
             case 2:

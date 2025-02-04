@@ -120,3 +120,28 @@ cJSON *savePlayer(Player *player){
     
     return p;
 }
+
+
+
+
+
+
+int switchPossible(Player *player){
+
+    // Basically check for a alive supemon
+    for(int i = 1; i < player->supemonAmount; i++){
+        if(player->supemons[i].hp > 0){
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+
+
+int switchSupemon(Player *player){
+
+    
+
+}
