@@ -15,5 +15,6 @@ int selectMove(Player *player);
 int capture(Player *player, Supemon *enemy);
 void getReward(Player *player, Supemon *enemy);
 int runAway(Player *player, Supemon *enemy);
+void removeBuffs(Supemon *supemon);
 
 #endif

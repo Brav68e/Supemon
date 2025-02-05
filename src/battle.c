@@ -120,6 +120,10 @@ void battle(Player *player){
         }
     }
 
+    // Don't forget to remove temporary buff !
+    for(int i=0; i<player->supemonAmount; i++){
+        removeBuffs(&player->supemons[i]);
+    }
     write(1, "This Battle is over!\n", 21);
 }
 
@@ -455,4 +459,14 @@ int runAway(Player *player, Supemon *enemy){
         displayRunfailure();
         return 0;
     }
+}
+
+
+
+
+void removeBuffs(Supemon *supemon){
+    supemon->atk = 0;
+    supemon->def = 0;
+    supemon->dodge = 0;
+    supemon->accuracy= 0;
 }
