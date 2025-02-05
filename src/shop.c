@@ -97,3 +97,44 @@ void buyItemMenu(Player *player) {
     player->coins -= selectedItem->price;
     printf("Bought %s for %d Supcoins!\n", selectedItem->name, selectedItem->price);
 }
+
+void displayPlayerItems(Player *player) {
+    printf("\nYour Items:\n");
+    if (player->itemAmount == 0) {
+        printf("No items in inventory.\n");
+        return;
+    }
+
+    for (int i = 0; i < player->itemAmount; i++) {
+        int sellPrice = player->items[i].item->price / 2;
+        printf("%d. %s (x%d) - Sell Price: %d Supcoins\n", i + 1, player->items[i].item->name, player->items[i].amount, sellPrice);
+    }
+}
+
+void sellItemMenu(Player *player) {
+    displayPlayerItems(player);
+    if (player->itemAmount == 0) return;
+
+    int choice;
+    printf("Enter the number of the item to sell (0 to cancel): ");
+    scanf("%d", &choice);
+
+    if (choice < 1 || choice > player->itemAmount) {
+        if (choice != 0) printf("Invalid item selection.\n");
+        return;
+    }
+
+    int sellPrice = player->items[choice - 1].item->price / 2;
+    player->items[choice - 1].amount--;
+    player->coins += sellPrice;
+
+    printf("Sold %s for %d Supcoins!\n", player->items[choice - 1].item->name, sellPrice);
+
+    if (player->items[choice - 1].amount == 0) {
+        freeItem(player->items[choice - 1].item);
+        for (int i = choice - 1; i < player->itemAmount - 1; i++) {
+            player->items[i] = player->items[i + 1];
+        }
+        player->itemAmount--;
+    }
+}

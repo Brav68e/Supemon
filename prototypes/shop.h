@@ -15,5 +15,7 @@ typedef enum {
 void displayShopMenu(Player *player);
 void displayAvailableItems();
 void buyItemMenu(Player *player);
+void sellItemMenu(Player *player);
+void displayPlayerItems(Player *player);
 
 #endif
