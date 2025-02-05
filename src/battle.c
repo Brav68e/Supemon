@@ -3,12 +3,14 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <unistd.h>
 #include "../prototypes/cJSON.h"
 #include "../prototypes/const.h"
 #include "../prototypes/player.h"
 #include "../prototypes/supemon.h"
 #include "../prototypes/item.h"
 #include "../prototypes/input.h"
+#include "../prototypes/battle.h"
 #include "../prototypes/display.h"
 
 
@@ -36,22 +38,22 @@ void battle(Player *player){
                 if(moveIndex){
                     if (player->supemons[0].speed >= enemy->speed) {
                         // Player attacks first
-                        useMove(player->supemons[0], enemy, moveIndex);
+                        useMove(&player->supemons[0], enemy, moveIndex);
                         fighting = checkBattleEnd(player, enemy);
                         // If the fight is not over, Enemy attack
                         if (fighting) {
                             int enemyMove = getRandomMove(enemy);
-                            useMove(enemy, player->supemons[0], enemyMove);
+                            useMove(enemy, &player->supemons[0], enemyMove);
                             fighting = checkBattleEnd(player, enemy);
                         }
                     }else{
                         // Enemy attacks first
                         int enemyMove = getRandomMove(enemy);
-                        useMove(enemy, player->supemons[0], enemyMove);
+                        useMove(enemy, &player->supemons[0], enemyMove);
                         fighting = checkBattleEnd(player, enemy);         
                         // If the fight is not over, allow the player's supemon to attack
                         if (fighting) {
-                            useMove(player->supemons[0], enemy, moveIndex);
+                            useMove(&player->supemons[0], enemy, moveIndex);
                             fighting = checkBattleEnd(player, enemy);
                         }
                     }
@@ -63,7 +65,7 @@ void battle(Player *player){
                 if (switchPossible(player) && switchSupemon(player, 1)) {
                     // Enemy attacks after the switch
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, player->supemons[0], enemyMove);
+                    useMove(enemy, &player->supemons[0], enemyMove);
                 } else {
                     write(1, "No Supémon available to switch!\n", 32);
                 }
@@ -74,7 +76,7 @@ void battle(Player *player){
                 if (useItem(player)) {
                     // Enemy attacks after item usage
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, player->supemons[0], enemyMove);
+                    useMove(enemy, &player->supemons[0], enemyMove);
                     fighting = checkBattleEnd(player, enemy);
                 }
                 break;
@@ -86,7 +88,7 @@ void battle(Player *player){
                 } else {
                     // Enemy attacks after failed capture
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, player->supemons[0], enemyMove);
+                    useMove(enemy, &player->supemons[0], enemyMove);
                     fighting = checkBattleEnd(player, enemy);
                 }
                 break;
@@ -99,7 +101,7 @@ void battle(Player *player){
                 } else {
                     // Enemy attacks if failed to escape
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, player->supemons[0], enemyMove);
+                    useMove(enemy, &player->supemons[0], enemyMove);
                     fighting = checkBattleEnd(player, enemy);
                 }
                 break;
@@ -120,7 +122,7 @@ int checkBattleEnd(Player *player, Supemon *enemy){
 
     // Scenario n°1 : the enemy die
     if(enemy->hp == 0){
-        write(1, "The enemy is defeat, you won this !", 38);
+        write(1, "The enemy is defeat, you won this !", 36);
         getReward(player, enemy);
         freeSupemon(enemy);
         return 0;
@@ -185,7 +187,7 @@ void useMove(Supemon *user, Supemon* opponent, int moveIndex){
 
     float userAtk = user->atk + user->baseAtk;
     float targetDef = opponent->def + opponent->baseDef;
-    float dmgDeal = userAtk * user.moves[moveIndex].dmg / targetDef;
+    float dmgDeal = userAtk * user->moves[moveIndex].dmg / targetDef;
 
     int round = rand() % 2;
     if(round){
@@ -211,8 +213,8 @@ int useItem(Player *player){
 
     // Check if the player got items
     int availableItem = 0;
-    for(int i=0; i<player.itemAmount; i++){
-        if(player.items[i].amount > 0){
+    for(int i=0; i<player->itemAmount; i++){
+        if(player->items[i].amount > 0){
             availableItem++;
         }
     }
@@ -334,11 +336,11 @@ void getLevel(Supemon *supemon, int level){
 
 void getExp(Supemon *supemon, int exp){
 
-    supemon->exp += exp;
+    supemon->xp += exp;
 
     // Check if the Supemon has reached the next level
-    while (supemon->exp >= supemon->nextLevel) {
-        supemon->exp -= supemon->nextLevel;
+    while (supemon->xp >= supemon->nextLevel) {
+        supemon->xp -= supemon->nextLevel;
         getLevel(supemon, 1);
     }
 }
@@ -349,7 +351,7 @@ void getExp(Supemon *supemon, int exp){
 int selectMove(Player *player){
 
     int choice;
-    displayMoves(player->supemon[0]);
+    displayMoves(&player->supemons[0]);
 
     while(1){
 
@@ -361,7 +363,7 @@ int selectMove(Player *player){
         }
 
         // A valid move selection
-        if(choice > 0 && choice <= player->supemon[0].movesAmount){
+        if(choice > 0 && choice <= player->supemons[0].movesAmount){
             return choice - 1;
         }
     }
@@ -376,7 +378,7 @@ int capture(Player *player, Supemon *enemy){
     if (successRate < 0) successRate = 0; // Prevent negative rates
 
     int round = rand() % 100;
-    displayCapture();
+    displayCapture(enemy);
 
     // Try to capture
     if(round <= successRate){
@@ -419,7 +421,7 @@ void getReward(Player *player, Supemon *enemy){
 
     int random = (rand() % 401) + 100;      // Random value between 100 & 500
     player->coins += random;
-    getExp(player->supemons[0], random*enemy->level);
+    getExp(&player->supemons[0], random*enemy->level);
 }
 
 

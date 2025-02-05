@@ -1,13 +1,10 @@
-
-
-
-
-
-
-
-
-
-
+#include "../prototypes/item.h"
+#include "../prototypes/supemon.h"
+#include "../prototypes/player.h"
+#include "../prototypes/const.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 
@@ -36,7 +33,7 @@ Item *displayItems(Player *player, int itemAvailable){
     for(int i=0; i<player->itemAmount; i++){
         if(player->items[i].amount > 0){
             Item *item = player->items[i].item;
-            printf("| %d - %s (X%d)\n", current, item.name, player->items[i].amount);
+            printf("| %d - %s (X%d)\n", current, item->name, player->items[i].amount);
             items[current] = *item;
             current++;
         }
@@ -53,8 +50,8 @@ int *displaySupemons(Player *player, int amount){
     int current = 1;
 
     for(int i=1; i<player->supemonAmount; i++){
-        if(player->supemon[i].hp > 0){
-            printf("| %d - %s (Hp : %d)\n", current, player->supemon[i].name, player->supemon[i].hp);
+        if(player->supemons[i].hp > 0){
+            printf("| %d - %s (Hp : %d)\n", current, player->supemons[i].name, player->supemons[i].hp);
             supemonsIndex[current] = i;
             current++;
         }
@@ -68,7 +65,7 @@ int *displaySupemons(Player *player, int amount){
 void displayMoves(Supemon *supemon){
 
     for(int i=0; i<supemon->movesAmount; i++){
-        printf("%d | %s (%d dmg)\n", i+1, supemon->moves[i].name, supemon->moves[i].dmg)
+        printf("%d | %s (%d dmg)\n", i+1, supemon->moves[i].name, supemon->moves[i].dmg);
     }
 }
 
@@ -95,8 +92,8 @@ void displayCapturefailure(void){
 
 void displayFullsupemon(Player *player){
 
-    write(1, "| Wait a second, you got too many supémons\n", 50);
-    write(1, "| You have to choose a supemon to discard\n", 50);
+    write(1, "| Wait a second, you got too many supémons\n", 45);
+    write(1, "| You have to choose a supemon to discard\n", 43);
     for(int i=0; i<MAX_SUPEMON; i++){
         printf("%d | %s\n", i+1, player->supemons[i].name);
     }

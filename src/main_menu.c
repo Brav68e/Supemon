@@ -7,6 +7,7 @@
 #include "../prototypes/supemon.h"
 #include "../prototypes/player.h"
 #include "../prototypes/load.h"
+#include "../prototypes/battle.h"
 
 
 
@@ -24,15 +25,12 @@ int main(void){
         // player = createSave(username);
     } else{
         printf("Je vous reconnais ! Vous etes %s, vous avez %s avec le move %s\n", player->name, player->supemons[0].name, player->supemons[0].moves[0].name);
-        int exist = saveExist(player);
-        if(exist){
-            printf("Le player existe\n");
-        }
+        // int exist = saveExist(player);
+        // if(exist){
+        //     printf("Le player existe\n");
+        // }
     }
 
-
-    // Modification du nom de joueur
-    // strcpy(player->name, "brav68e");
 
 
     
@@ -48,7 +46,6 @@ int main(void){
             case 1:
                 // Select to battle a random enemy
                 battle(player);
-                printf("just 1");
                 break;
             case 2:
                 // Select to go to the shop
