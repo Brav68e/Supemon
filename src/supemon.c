@@ -94,18 +94,20 @@ Supemon *loadSupemon_data(cJSON *supemon){
         moveset->dmg = dmg->valueint;
         moveset->buffAmount = buffAmount->valueint;
 
-        moveset->statChanges = malloc(sizeof(Buff) * buffAmount->valueint);
-        cJSON *buff;
-        int j = 0;
-        cJSON_ArrayForEach(buff, buff_array) {	
-            // Extract data
-            cJSON *stat = cJSON_GetObjectItem(buff, "stat");
-            cJSON *value = cJSON_GetObjectItem(buff, "value");
-            // Reproduce struct
-            Buff *buff_stat = &moveset->statChanges[j];
-            strcpy(buff_stat->stat, stat->valuestring);
-            buff_stat->value = value->valueint;
-            j++;
+        if(buffAmount->valueint){
+            moveset->statChanges = malloc(sizeof(Buff) * buffAmount->valueint);
+            cJSON *buff;
+            int j = 0;
+            cJSON_ArrayForEach(buff, buff_array) {	
+                // Extract data
+                cJSON *stat = cJSON_GetObjectItem(buff, "stat");
+                cJSON *value = cJSON_GetObjectItem(buff, "value");
+                // Reproduce struct
+                Buff *buff_stat = &moveset->statChanges[j];
+                strcpy(buff_stat->stat, stat->valuestring);
+                buff_stat->value = value->valueint;
+                j++;
+            }
         }
         i++;
     }
@@ -169,7 +171,9 @@ void freeSupemon(Supemon *supemon){
 
     // Loop through all moves and free their statChanges
     for (int i = 0; i < supemon->movesAmount; i++) {
-        free(supemon->moves[i].statChanges);
+        if(supemon->moves[i].buffAmount){
+            free(supemon->moves[i].statChanges);
+        }
     }
     free(supemon->moves);
     free(supemon);

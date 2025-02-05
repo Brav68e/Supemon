@@ -10,8 +10,8 @@
 					"level":	10,
 					"nextLevel":	100,
 					"xp":	0,
-					"hp":	50,
-					"maxHp":	50,
+					"hp":	5000,
+					"maxHp":	5000,
 					"atk":	15,
 					"baseAtk":	10,
 					"def":	12,
@@ -38,7 +38,7 @@
 						}]
 				}],
 			"items":	[{
-					"amount":	3,
+					"amount":	2,
 					"item":	{
 						"id":	1,
 						"name":	"Potion",

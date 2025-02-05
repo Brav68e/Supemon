@@ -18,10 +18,30 @@ void displayBattlemenu(void){
     "|  3 - Use item            |\n"
     "|  4 - Capture             |\n"
     "|  5 - Run away            |\n"
-    "+--------------------------+\n";
+    "+--------------------------+\n\n";
 
-    write(1, msg, 224);
+    write(1, msg, 232);
 }
+
+
+void displaySupemonstats(Supemon *sup1, Supemon *sup2){
+
+    printf("%s (enemy)\n", sup1->name);
+    printf("----------------------\n");
+    printf("HP: %d/%d      Lvl: %d\n", sup1->hp, sup1->maxHp, sup1->level);
+    printf("Atk: %d        Def: %d\n", sup1->atk, sup1->def);
+    printf("Acc: %d        Eva: %d\n", sup1->accuracy, sup1->dodge);
+
+    printf("----------------------\n");
+
+    printf("%s (you)\n", sup2->name);
+    printf("----------------------\n");
+    printf("HP: %d/%d      Lvl: %d\n", sup2->hp, sup2->maxHp, sup2->level);
+    printf("Atk: %d        Def: %d\n", sup2->atk, sup2->def);
+    printf("Acc: %d        Eva: %d\n", sup2->accuracy, sup2->dodge);
+}
+
+
 
 
 
@@ -34,7 +54,7 @@ Item *displayItems(Player *player, int itemAvailable){
         if(player->items[i].amount > 0){
             Item *item = player->items[i].item;
             printf("| %d - %s (X%d)\n", current, item->name, player->items[i].amount);
-            items[current] = *item;
+            items[current-1] = *item;
             current++;
         }
     }
@@ -85,7 +105,7 @@ void displayCapturesuccess(void){
 
 void displayCapturefailure(void){
 
-    write(1, "| Wow, that was close ! Maybe you should try to lower his Hp\n", 50);
+    write(1, "| Wow, that was close ! Maybe you should try to lower his Hp\n", 61);
 }
 
 
@@ -102,10 +122,10 @@ void displayFullsupemon(Player *player){
 
 
 void displayRunsuccess(void){
-    write(1, "| You are really good at running, You've escape the fight\n", 50);
+    write(1, "| You are really good at running, You've escape the fight\n", 57);
 }
 
 
 void displayRunfailure(void){
-    write(1, "| You can't escape this guy that easily, you failed\n", 50);
+    write(1, "| You can't escape this guy that easily, you failed\n", 52);
 }

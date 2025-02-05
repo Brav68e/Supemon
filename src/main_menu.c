@@ -37,6 +37,7 @@ int main(void){
     int choice = 12;
 
     do{
+        printf("Dis moi ce que tu veux faire aujourd'hui\n");             // Debug
         store_input("Entrez un nombre : ", &choice, 16, "int");
         // printf("feur");
         // scanf("%d", &choice);

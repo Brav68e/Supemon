@@ -23,14 +23,15 @@ void battle(Player *player){
     srand(time(NULL));
     int randomID = (rand() % INGAME_SUPEMON) + 1; 
     Supemon *enemy = loadSupemon(randomID);
-    printf("A wild %s lvl%d appear !", enemy->name, enemy->level);
+    printf("A wild %s lvl%d appear !\n", enemy->name, enemy->level);
+    fflush(stdout);
     
     while(fighting){
 
         displayBattlemenu();
 
         int choice;
-        store_input("1, 2, 3, 4 or 5 : ", &choice, 16, "int");
+        store_input("\n1, 2, 3, 4 or 5 : ", &choice, 16, "int");
 
         switch (choice) {
             case 1: 
@@ -45,6 +46,7 @@ void battle(Player *player){
                             int enemyMove = getRandomMove(enemy);
                             useMove(enemy, &player->supemons[0], enemyMove);
                             fighting = checkBattleEnd(player, enemy);
+                            displaySupemonstats(enemy, &player->supemons[0]);
                         }
                     }else{
                         // Enemy attacks first
@@ -55,6 +57,7 @@ void battle(Player *player){
                         if (fighting) {
                             useMove(&player->supemons[0], enemy, moveIndex);
                             fighting = checkBattleEnd(player, enemy);
+                            displaySupemonstats(enemy, &player->supemons[0]);
                         }
                     }
                 }
@@ -66,6 +69,7 @@ void battle(Player *player){
                     // Enemy attacks after the switch
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
+                    displaySupemonstats(enemy, &player->supemons[0]);
                 } else {
                     write(1, "No Supémon available to switch!\n", 32);
                 }
@@ -78,6 +82,7 @@ void battle(Player *player){
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
                     fighting = checkBattleEnd(player, enemy);
+                    displaySupemonstats(enemy, &player->supemons[0]);
                 }
                 break;
             
@@ -90,6 +95,7 @@ void battle(Player *player){
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
                     fighting = checkBattleEnd(player, enemy);
+                    displaySupemonstats(enemy, &player->supemons[0]);
                 }
                 break;
             
@@ -103,6 +109,7 @@ void battle(Player *player){
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
                     fighting = checkBattleEnd(player, enemy);
+                    displaySupemonstats(enemy, &player->supemons[0]);
                 }
                 break;
 
@@ -112,7 +119,7 @@ void battle(Player *player){
         }
     }
 
-    write(1, "Battle over!\n", 13);
+    write(1, "This Battle is over!\n", 21);
 }
 
 
@@ -122,7 +129,7 @@ int checkBattleEnd(Player *player, Supemon *enemy){
 
     // Scenario n°1 : the enemy die
     if(enemy->hp == 0){
-        write(1, "The enemy is defeat, you won this !", 36);
+        write(1, "The enemy is defeat, you won this !\n", 37);
         getReward(player, enemy);
         freeSupemon(enemy);
         return 0;
@@ -199,10 +206,14 @@ void useMove(Supemon *user, Supemon* opponent, int moveIndex){
 
     int hit = rand() % 100;
     if(hit <= successRate){
+        printf("| %s uses %s on %s\n", user->name, user->moves[moveIndex].name, opponent->name);
         opponent->hp -= dmgDeal;
         if(opponent->hp < 0){
             opponent->hp = 0;
         }
+    }else {
+        // Failure
+        printf("| %s uses %s on %s... But it fails\n", user->name, user->moves[moveIndex].name, opponent->name);
     }
 }
 
@@ -277,6 +288,7 @@ int useItem(Player *player){
                 }
             }
             free(available);
+            return 1;
         }
     }
 }
@@ -364,7 +376,7 @@ int selectMove(Player *player){
 
         // A valid move selection
         if(choice > 0 && choice <= player->supemons[0].movesAmount){
-            return choice - 1;
+            return (choice - 1);
         }
     }
 }
