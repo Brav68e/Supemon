@@ -95,6 +95,7 @@ void battle(Player *player){
                 // Try to run away
                 if (runAway(player, enemy)) {
                     fighting = 0;
+                    freeSupemon(enemy);
                 } else {
                     // Enemy attacks if failed to escape
                     int enemyMove = getRandomMove(enemy);
@@ -110,7 +111,6 @@ void battle(Player *player){
     }
 
     write(1, "Battle over!\n", 13);
-    free(enemy);
 }
 
 
@@ -121,6 +121,8 @@ int checkBattleEnd(Player *player, Supemon *enemy){
     // Scenario n°1 : the enemy die
     if(enemy->hp == 0){
         write(1, "The enemy is defeat, you won this !", 38);
+        getReward(player, enemy);
+        freeSupemon(enemy);
         return 0;
     }
 
@@ -134,6 +136,7 @@ int checkBattleEnd(Player *player, Supemon *enemy){
 
     if(!alive){
         write(1, "All of your Supémons died, you lose...", 40);
+        freeSupemon(enemy);
         return 0;
     }
     
@@ -299,8 +302,8 @@ int switchSupemon(Player *player, int forced){
 
         // Properly change the 2 supémons
         if(choice > 0 && choice <= options){
-            Supemon tmp = player->supemons[available[choice]];
-            player->supemons[available[choice]] = player->supemons[0];
+            Supemon tmp = player->supemons[available[choice-1]];
+            player->supemons[available[choice-1]] = player->supemons[0];
             player->supemons[0] = tmp;
             free(available);
             return 1;
@@ -361,5 +364,79 @@ int selectMove(Player *player){
         if(choice > 0 && choice <= player->supemon[0].movesAmount){
             return choice - 1;
         }
+    }
+}
+
+
+
+
+int capture(Player *player, Supemon *enemy){
+
+    float successRate = ((enemy->maxHp - enemy->hp) / enemy->maxHp - 0.5) * 100;
+    if (successRate < 0) successRate = 0; // Prevent negative rates
+
+    int round = rand() % 100;
+    displayCapture();
+
+    // Try to capture
+    if(round <= successRate){
+        displayCapturesuccess();
+
+        // Handle full inv case
+        if(player->supemonAmount == MAX_SUPEMON){
+            displayFullsupemon(player);
+            int choice;
+
+            while(1){
+
+                store_input("Select a supémon (or 0 to cancel) : ", &choice, 16, "int");
+
+                if(choice == 0){
+                    return 1;       // Discard the freshly captured supemon (capture is a success)
+                }
+                if(choice>0 && choice <= MAX_SUPEMON){
+                    freeSupemon(&player->supemons[choice-1]);
+                    player->supemons[choice-1] = *enemy;
+                    return 1;       // Discard the selected supemon and add new one (capture is a success)
+                }
+            }
+        }
+
+        // Capture is a success and not full inv
+        player->supemons[player->supemonAmount] = *enemy;
+        player->supemonAmount++;
+        return 1;
+    }else{
+        displayCapturefailure();
+        return 0;           // Exit, capture failure
+    }
+}
+
+
+
+
+void getReward(Player *player, Supemon *enemy){
+
+    int random = (rand() % 401) + 100;      // Random value between 100 & 500
+    player->coins += random;
+    getExp(player->supemons[0], random*enemy->level);
+}
+
+
+
+
+int runAway(Player *player, Supemon *enemy){
+
+    float successRate = player->supemons[0].speed / (player->supemons[0].speed + enemy->speed) * 100;
+    int round = rand() % 100;
+
+    if(round <= successRate){
+        // Success to escape
+        displayRunsuccess();
+        return 1;
+    }else {
+        // Failure to escape
+        displayRunfailure();
+        return 0;
     }
 }
