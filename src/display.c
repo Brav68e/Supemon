@@ -67,11 +67,11 @@ Item *displayItems(Player *player, int itemAvailable){
 int *displaySupemons(Player *player, int amount){
 
     int *supemonsIndex = malloc(sizeof(int) * amount);
-    int current = 1;
+    int current = 0;
 
     for(int i=1; i<player->supemonAmount; i++){
         if(player->supemons[i].hp > 0){
-            printf("| %d - %s (Hp : %d)\n", current, player->supemons[i].name, player->supemons[i].hp);
+            printf("| %d - %s (Hp : %d)\n", current+1, player->supemons[i].name, player->supemons[i].hp);
             supemonsIndex[current] = i;
             current++;
         }
@@ -128,4 +128,9 @@ void displayRunsuccess(void){
 
 void displayRunfailure(void){
     write(1, "| You can't escape this guy that easily, you failed\n", 52);
+}
+
+
+void displayForcedswitch(){
+    write(1, "| Your current supemon just died, select a new one \n", 52);
 }

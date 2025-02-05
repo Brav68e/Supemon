@@ -12,6 +12,6 @@ void displayCapturefailure(void);
 void displayFullsupemon(Player *player);
 void displayRunsuccess(void);
 void displayRunfailure(void);
-
+void displayForcedswitch(void);
 
 #endif

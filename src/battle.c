@@ -35,11 +35,11 @@ void battle(Player *player){
 
         switch (choice) {
             case 1: 
-                int moveIndex = selectMove(player);
+                int moveIndex = selectMove(player);     // Got the 1 based index (since statement below)
                 if(moveIndex){
                     if (player->supemons[0].speed >= enemy->speed) {
                         // Player attacks first
-                        useMove(&player->supemons[0], enemy, moveIndex);
+                        useMove(&player->supemons[0], enemy, moveIndex-1);
                         fighting = checkBattleEnd(player, enemy);
                         // If the fight is not over, Enemy attack
                         if (fighting) {
@@ -70,6 +70,7 @@ void battle(Player *player){
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
                     displaySupemonstats(enemy, &player->supemons[0]);
+                    (void)checkBattleEnd(player, enemy);          // Ensure the current supemon isn't dead (Fix : switching and getting finish off)
                 } else {
                     write(1, "No Supémon available to switch!\n", 32);
                 }
@@ -151,6 +152,7 @@ int checkBattleEnd(Player *player, Supemon *enemy){
     
     // Scenario n°3 : My current Supémon died but I can switch
     if(player->supemons[0].hp == 0){
+        displayForcedswitch();
         return switchSupemon(player, 1);
     }
 
@@ -373,10 +375,10 @@ int selectMove(Player *player){
         if(choice == 0){
             return 0;
         }
-
+  
         // A valid move selection
         if(choice > 0 && choice <= player->supemons[0].movesAmount){
-            return (choice - 1);
+            return choice;
         }
     }
 }

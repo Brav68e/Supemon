@@ -69,7 +69,7 @@
             {
                 "name": "Skibidi Thrower",
                 "dmg": 5,
-                "buffAmount": 0,
+                "buffAmount": 1,
                 "statChanges": [
                     {
                         "stat": "def",
