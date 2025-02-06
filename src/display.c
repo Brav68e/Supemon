@@ -70,8 +70,8 @@ int *displaySupemons(Player *player, int amount){
     int current = 0;
 
     for(int i=1; i<player->supemonAmount; i++){
-        if(player->supemons[i].hp > 0){
-            printf("| %d - %s (Hp : %d)\n", current+1, player->supemons[i].name, player->supemons[i].hp);
+        if(player->supemons[i]->hp > 0){
+            printf("| %d - %s (Hp : %d)\n", current+1, player->supemons[i]->name, player->supemons[i]->hp);
             supemonsIndex[current] = i;
             current++;
         }
@@ -115,7 +115,7 @@ void displayFullsupemon(Player *player){
     write(1, "| Wait a second, you got too many supémons\n", 45);
     write(1, "| You have to choose a supemon to discard\n", 43);
     for(int i=0; i<MAX_SUPEMON; i++){
-        printf("%d | %s\n", i+1, player->supemons[i].name);
+        printf("%d | %s\n", i+1, player->supemons[i]->name);
     }
 }
 

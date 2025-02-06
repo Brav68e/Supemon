@@ -25,7 +25,7 @@ int main(void){
         printf("Erreur");
         // player = createSave(username);
     } else{
-        printf("Je vous reconnais ! Vous etes %s, vous avez %s avec le move %s\n", player->name, player->supemons[0].name, player->supemons[0].moves[0].name);
+        printf("Je vous reconnais ! Vous etes %s, vous avez %s avec le move %s\n", player->name, player->supemons[0]->name, player->supemons[0]->moves[0].name);
         // int exist = saveExist(player);
         // if(exist){
         //     printf("Le player existe\n");
@@ -47,7 +47,7 @@ int main(void){
 
             case 1:
                 // Select to battle a random enemy
-                if(player->supemons[0].hp > 0){
+                if(player->supemons[0]->hp > 0){
                     battle(player);
                     break;
                 }else {

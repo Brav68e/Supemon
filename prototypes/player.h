@@ -7,7 +7,7 @@ typedef struct{
     char name[32];
     int coins;
     int supemonAmount;
-    Supemon *supemons;          // Malloc 6 * sizeof(Supemon)
+    Supemon **supemons;          // Malloc 6 * sizeof(Supemon)
     Iteminfo *items;
     int itemAmount;
 } Player;

@@ -37,26 +37,26 @@ void battle(Player *player){
             case 1: 
                 int moveIndex = selectMove(player);     // Got the 1 based index (since statement below)
                 if(moveIndex){
-                    if (player->supemons[0].speed >= enemy->speed) {
+                    if (player->supemons[0]->speed >= enemy->speed) {
                         // Player attacks first
-                        useMove(&player->supemons[0], enemy, moveIndex-1);
+                        useMove(player->supemons[0], enemy, moveIndex-1);
                         fighting = checkBattleEnd(player, enemy);
                         // If the fight is not over, Enemy attack
                         if (fighting) {
                             int enemyMove = getRandomMove(enemy);
-                            useMove(enemy, &player->supemons[0], enemyMove);
-                            displaySupemonstats(enemy, &player->supemons[0]);
+                            useMove(enemy, player->supemons[0], enemyMove);
+                            displaySupemonstats(enemy, player->supemons[0]);
                             fighting = checkBattleEnd(player, enemy);
                         }
                     }else{
                         // Enemy attacks first
                         int enemyMove = getRandomMove(enemy);
-                        useMove(enemy, &player->supemons[0], enemyMove);
+                        useMove(enemy, player->supemons[0], enemyMove);
                         fighting = checkBattleEnd(player, enemy);         
                         // If the fight is not over, allow the player's supemon to attack
                         if (fighting) {
-                            useMove(&player->supemons[0], enemy, moveIndex);
-                            displaySupemonstats(enemy, &player->supemons[0]);
+                            useMove(player->supemons[0], enemy, moveIndex);
+                            displaySupemonstats(enemy, player->supemons[0]);
                             fighting = checkBattleEnd(player, enemy);
                         }
                     }
@@ -68,8 +68,8 @@ void battle(Player *player){
                 if (switchPossible(player) && switchSupemon(player, 0)) {
                     // Enemy attacks after the switch
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, &player->supemons[0], enemyMove);
-                    displaySupemonstats(enemy, &player->supemons[0]);
+                    useMove(enemy, player->supemons[0], enemyMove);
+                    displaySupemonstats(enemy, player->supemons[0]);
                     (void)checkBattleEnd(player, enemy);          // Ensure the current supemon isn't dead (Fix : switching and getting finish off)
                 } else {
                     write(1, "No Supémon available to switch!\n", 32);
@@ -81,8 +81,8 @@ void battle(Player *player){
                 if (useItem(player)) {
                     // Enemy attacks after item usage
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, &player->supemons[0], enemyMove);
-                    displaySupemonstats(enemy, &player->supemons[0]);
+                    useMove(enemy, player->supemons[0], enemyMove);
+                    displaySupemonstats(enemy, player->supemons[0]);
                     fighting = checkBattleEnd(player, enemy);              
                 }
                 break;
@@ -94,8 +94,8 @@ void battle(Player *player){
                 } else {
                     // Enemy attacks after failed capture
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, &player->supemons[0], enemyMove);
-                    displaySupemonstats(enemy, &player->supemons[0]);
+                    useMove(enemy, player->supemons[0], enemyMove);
+                    displaySupemonstats(enemy, player->supemons[0]);
                     fighting = checkBattleEnd(player, enemy);
                 }
                 break;
@@ -108,8 +108,8 @@ void battle(Player *player){
                 } else {
                     // Enemy attacks if failed to escape
                     int enemyMove = getRandomMove(enemy);
-                    useMove(enemy, &player->supemons[0], enemyMove);
-                    displaySupemonstats(enemy, &player->supemons[0]);
+                    useMove(enemy, player->supemons[0], enemyMove);
+                    displaySupemonstats(enemy, player->supemons[0]);
                     fighting = checkBattleEnd(player, enemy);
                 }
                 break;
@@ -122,7 +122,7 @@ void battle(Player *player){
 
     // Don't forget to remove temporary buff !
     for(int i=0; i<player->supemonAmount; i++){
-        removeBuffs(&player->supemons[i]);
+        removeBuffs(player->supemons[i]);
     }
     write(1, "This Battle is over!\n", 21);
 }
@@ -143,7 +143,7 @@ int checkBattleEnd(Player *player, Supemon *enemy){
     // Scenario n°2 : In all of my supemons, none is alive
     int alive = 0;
     for(int i = 0; i<player->supemonAmount; i++){
-        if(player->supemons[i].hp > 0){
+        if(player->supemons[i]->hp > 0){
             alive++;
         }
     }
@@ -155,7 +155,7 @@ int checkBattleEnd(Player *player, Supemon *enemy){
     }
     
     // Scenario n°3 : My current Supémon died but I can switch
-    if(player->supemons[0].hp == 0){
+    if(player->supemons[0]->hp == 0){
         displayForcedswitch();
         return switchSupemon(player, 1);
     }
@@ -171,7 +171,7 @@ int switchPossible(Player *player){
     int alive = 0;
 
     for(int i=1; i<player->supemonAmount; i++){
-        if(player->supemons[i].hp > 0){
+        if(player->supemons[i]->hp > 0){
             alive++;
         }
     }    
@@ -268,20 +268,20 @@ int useItem(Player *player){
 
                 // Modify Pokémon stats based on buff type
                 if (strcmp(buff->stat, "hp") == 0) {
-                    player->supemons[0].hp += buff->value;
-                    if (player->supemons[0].hp > player->supemons[0].maxHp) {
-                        player->supemons[0].hp = player->supemons[0].maxHp;
+                    player->supemons[0]->hp += buff->value;
+                    if (player->supemons[0]->hp > player->supemons[0]->maxHp) {
+                        player->supemons[0]->hp = player->supemons[0]->maxHp;
                     }
                 } else if (strcmp(buff->stat, "atk") == 0) {
-                    player->supemons[0].atk += buff->value;
+                    player->supemons[0]->atk += buff->value;
                 } else if (strcmp(buff->stat, "def") == 0) {
-                    player->supemons[0].def += buff->value;
+                    player->supemons[0]->def += buff->value;
                 } else if (strcmp(buff->stat, "accuracy") == 0) {
-                    player->supemons[0].accuracy += buff->value;
+                    player->supemons[0]->accuracy += buff->value;
                 } else if (strcmp(buff->stat, "dodge") == 0) {
-                    player->supemons[0].dodge += buff->value;
+                    player->supemons[0]->dodge += buff->value;
                 } else if (strcmp(buff->stat, "level") == 0) {
-                    getLevel(&player->supemons[0], buff->value);
+                    getLevel(player->supemons[0], buff->value);
                 }
 
                 printf("%s applied: %s +%d\n", selectedItem->name, buff->stat, buff->value);
@@ -322,7 +322,7 @@ int switchSupemon(Player *player, int forced){
 
         // Properly change the 2 supémons
         if(choice > 0 && choice <= options){
-            Supemon tmp = player->supemons[available[choice-1]];
+            Supemon* tmp = player->supemons[available[choice-1]];
             player->supemons[available[choice-1]] = player->supemons[0];
             player->supemons[0] = tmp;
             free(available);
@@ -369,7 +369,7 @@ void getExp(Supemon *supemon, int exp){
 int selectMove(Player *player){
 
     int choice;
-    displayMoves(&player->supemons[0]);
+    displayMoves(player->supemons[0]);
 
     while(1){
 
@@ -381,7 +381,7 @@ int selectMove(Player *player){
         }
   
         // A valid move selection
-        if(choice > 0 && choice <= player->supemons[0].movesAmount){
+        if(choice > 0 && choice <= player->supemons[0]->movesAmount){
             return choice;
         }
     }
@@ -412,18 +412,19 @@ int capture(Player *player, Supemon *enemy){
                 store_input("Select a supémon (or 0 to cancel) : ", &choice, 16, "int");
 
                 if(choice == 0){
+                    freeSupemon(enemy);
                     return 1;       // Discard the freshly captured supemon (capture is a success)
                 }
                 if(choice>0 && choice <= MAX_SUPEMON){
-                    freeSupemon(&player->supemons[choice-1]);
-                    player->supemons[choice-1] = *enemy;
+                    freeSupemon(player->supemons[choice-1]);
+                    player->supemons[choice-1] = enemy;
                     return 1;       // Discard the selected supemon and add new one (capture is a success)
                 }
             }
         }
 
         // Capture is a success and not full inv
-        player->supemons[player->supemonAmount] = *enemy;
+        player->supemons[player->supemonAmount] = enemy;
         player->supemonAmount++;
         return 1;
     }else{
@@ -439,7 +440,7 @@ void getReward(Player *player, Supemon *enemy){
 
     int random = (rand() % 401) + 100;      // Random value between 100 & 500
     player->coins += random;
-    getExp(&player->supemons[0], random*enemy->level);
+    getExp(player->supemons[0], random*enemy->level);
 }
 
 
@@ -447,7 +448,7 @@ void getReward(Player *player, Supemon *enemy){
 
 int runAway(Player *player, Supemon *enemy){
 
-    float successRate = player->supemons[0].speed / (player->supemons[0].speed + enemy->speed) * 100;
+    float successRate = player->supemons[0]->speed / (player->supemons[0]->speed + enemy->speed) * 100;
     int round = rand() % 100;
 
     if(round <= successRate){
