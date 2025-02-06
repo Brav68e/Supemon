@@ -45,8 +45,8 @@ void battle(Player *player){
                         if (fighting) {
                             int enemyMove = getRandomMove(enemy);
                             useMove(enemy, &player->supemons[0], enemyMove);
-                            fighting = checkBattleEnd(player, enemy);
                             displaySupemonstats(enemy, &player->supemons[0]);
+                            fighting = checkBattleEnd(player, enemy);
                         }
                     }else{
                         // Enemy attacks first
@@ -56,8 +56,8 @@ void battle(Player *player){
                         // If the fight is not over, allow the player's supemon to attack
                         if (fighting) {
                             useMove(&player->supemons[0], enemy, moveIndex);
-                            fighting = checkBattleEnd(player, enemy);
                             displaySupemonstats(enemy, &player->supemons[0]);
+                            fighting = checkBattleEnd(player, enemy);
                         }
                     }
                 }
@@ -65,7 +65,7 @@ void battle(Player *player){
             
             case 2: 
                 // Player switches Pokémon
-                if (switchPossible(player) && switchSupemon(player, 1)) {
+                if (switchPossible(player) && switchSupemon(player, 0)) {
                     // Enemy attacks after the switch
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
@@ -82,8 +82,8 @@ void battle(Player *player){
                     // Enemy attacks after item usage
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
-                    fighting = checkBattleEnd(player, enemy);
                     displaySupemonstats(enemy, &player->supemons[0]);
+                    fighting = checkBattleEnd(player, enemy);              
                 }
                 break;
             
@@ -95,8 +95,8 @@ void battle(Player *player){
                     // Enemy attacks after failed capture
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
-                    fighting = checkBattleEnd(player, enemy);
                     displaySupemonstats(enemy, &player->supemons[0]);
+                    fighting = checkBattleEnd(player, enemy);
                 }
                 break;
             
@@ -109,8 +109,8 @@ void battle(Player *player){
                     // Enemy attacks if failed to escape
                     int enemyMove = getRandomMove(enemy);
                     useMove(enemy, &player->supemons[0], enemyMove);
-                    fighting = checkBattleEnd(player, enemy);
                     displaySupemonstats(enemy, &player->supemons[0]);
+                    fighting = checkBattleEnd(player, enemy);
                 }
                 break;
 

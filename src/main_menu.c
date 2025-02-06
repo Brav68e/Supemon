@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 // Include all needed files
 #include "../prototypes/input.h"
 #include "../prototypes/item.h"
@@ -46,8 +47,14 @@ int main(void){
 
             case 1:
                 // Select to battle a random enemy
-                battle(player);
-                break;
+                if(player->supemons[0].hp > 0){
+                    battle(player);
+                    break;
+                }else {
+                    write(1, "You have no alive supemons, check the supemon center before\n", 61);
+                    break;
+                }
+                
             case 2:
                 // Select to go to the shop
                 // shop(player);
