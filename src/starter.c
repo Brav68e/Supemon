@@ -40,8 +40,7 @@ Player *createPlayer(char username[32], Supemon *starter){
     user->supemons = malloc(sizeof(Supemon) * MAX_SUPEMON);
     user->items = malloc(sizeof(Iteminfo) * INGAME_ITEMS);
     // Supemon starter
-    user->supemons[0] = *starter;
-    free(starter);
+    user->supemons[0] = starter;
     // Initial items (3 potions)
     Iteminfo *ii = &user->items[0];
     ii->amount = 3;
