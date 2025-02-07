@@ -73,6 +73,7 @@ void buyItemMenu(Player *player) {
 
     if (quantity < 1) {
         printf("Invalid quantity.\n");
+        freeItem(selectedItem);
         return;
     }
 
@@ -107,7 +108,7 @@ void buyItemMenu(Player *player) {
     }
 
     player->coins -= totalCost;
-    printf("Bought %d x %s for %d Supcoins!\n", quantity, player->items[choice - 1].item->name, totalCost);
+    printf("Bought %d x %s for %d Supcoins!\n", quantity, selectedItem->name, totalCost);
     fflush(stdout);
 }
 
@@ -160,6 +161,6 @@ void sellItemMenu(Player *player) {
         for (int i = choice - 1; i < player->itemAmount - quantity; i++) {
             player->items[i] = player->items[i + 1];
         }
-        player->itemAmount -= quantity;
+        player->itemAmount--;
     }
 }

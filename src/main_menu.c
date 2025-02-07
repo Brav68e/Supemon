@@ -32,13 +32,12 @@ int main(void){
         displayOldplayer();
     }
 
-
     
+    int choice;
 
     do{
         displayMainmenu();
 
-        int choice;
         store_input("1, 2, 3 ou 4 : ", &choice, 16, "int");
 
         switch(choice){
