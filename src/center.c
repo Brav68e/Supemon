@@ -77,6 +77,8 @@ void supemon_center(Player* player) {
             continue;
         }
 
+        while (getchar() != '\n')
+
         switch(choice) {
             case 1:
                 display_player_supemons(player);
