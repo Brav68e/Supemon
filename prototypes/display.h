@@ -1,6 +1,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+
 void displayBattlemenu(void);
 void displaySupemonstats(Supemon *sup1, Supemon *sup2);
 Item *displayItems(Player *player, int itemAvailable);
@@ -13,5 +14,9 @@ void displayFullsupemon(Player *player);
 void displayRunsuccess(void);
 void displayRunfailure(void);
 void displayForcedswitch(void);
+void displayNewplayer(void);
+void displayOldplayer(void);
+void displayStarter(void);
+void displayMainmenu(void);
 
 #endif
