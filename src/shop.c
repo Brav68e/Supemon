@@ -1,24 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "../prototypes/shop.h"
 #include "../prototypes/item.h"
 #include "../prototypes/player.h"
+#include "../prototypes/input.h"
 
 #define INGAME_ITEMS 10
 #define MAX_SHOP_ITEMS 3
 static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3};
 
 void displayShopMenu(Player *player) {
-    int choice;
+    int choice, quantity;
     do {
-        printf("\n--- Supémon Shop ---\n");
-        printf("1. Buy Items\n");
-        printf("2. Sell Items\n");
-        printf("3. Exit Shop\n");
-        printf("Your current Supcoins: %d\n", player->coins);
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+        write(1,"\n--- Supémon Shop ---\n",24);
+        write(1,"1. Buy Items\n",14);
+        write(1,"2. Sell Items\n",15);
+        write(1,"3. Exit Shop\n",14);
+        printf("\nYour current Supcoins: %d\n", player->coins);
+        fflush(stdout);
+
+        store_input("Enter your choice: ", &choice, 16, "int");
 
         switch (choice) {
             case SHOP_BUY:
@@ -28,10 +31,10 @@ void displayShopMenu(Player *player) {
                 sellItemMenu(player);
                 break;
             case SHOP_EXIT:
-                printf("Leaving the shop...\n");
+                printf("Leaving the shop...\n\n");
                 break;
             default:
-                printf("Invalid choice. Try again.\n");
+                printf("Invalid choice. Try again.\n\n");
         }
     } while (choice != SHOP_EXIT);
 }
@@ -50,9 +53,9 @@ void displayAvailableItems() {
 void buyItemMenu(Player *player) {
     displayAvailableItems();
     
-    int choice;
-    printf("Enter the number of the item to buy (0 to cancel): ");
-    scanf("%d", &choice);
+    int choice, quantity;
+
+    store_input("Enter the number of the item to buy (0 to cancel): ", &choice, 16, "int");
 
     if (choice < 1 || choice > MAX_SHOP_ITEMS) {
         if (choice != 0) printf("Invalid item selection.\n");
@@ -65,8 +68,16 @@ void buyItemMenu(Player *player) {
         return;
     }
 
-    if (player->coins < selectedItem->price) {
-        printf("Not enough Supcoins to buy %s!\n", selectedItem->name);
+    store_input("Enter the quantity to buy: ", &quantity, 16, "int");
+
+    if (quantity < 1) {
+        printf("Invalid quantity.\n");
+        return;
+    }
+
+    int totalCost = selectedItem->price * quantity;
+    if (player->coins < totalCost) {
+        printf("Not enough Supcoins to buy %d x %s!\n", quantity, selectedItem->name);
         freeItem(selectedItem);
         return;
     }
@@ -74,7 +85,7 @@ void buyItemMenu(Player *player) {
     int found = 0;
     for (int i = 0; i < player->itemAmount; i++) {
         if (player->items[i].item->id == selectedItem->id) {
-            player->items[i].amount++;
+            player->items[i].amount += quantity;
             found = 1;
             break;
         }
@@ -83,7 +94,7 @@ void buyItemMenu(Player *player) {
     if (!found) {
         if (player->itemAmount < INGAME_ITEMS) {
             player->items[player->itemAmount].item = selectedItem;
-            player->items[player->itemAmount].amount = 1;
+            player->items[player->itemAmount].amount = quantity;
             player->itemAmount++;
         } else {
             printf("Inventory is full. Cannot add more items.\n");
@@ -94,9 +105,11 @@ void buyItemMenu(Player *player) {
         freeItem(selectedItem);
     }
 
-    player->coins -= selectedItem->price;
-    printf("Bought %s for %d Supcoins!\n", selectedItem->name, selectedItem->price);
+    player->coins -= totalCost;
+    printf("Bought %d x %s for %d Supcoins!\n", quantity, player->items[choice - 1].item->name, totalCost);
+    fflush(stdout);
 }
+
 
 void displayPlayerItems(Player *player) {
     printf("\nYour Items:\n");
@@ -115,26 +128,37 @@ void sellItemMenu(Player *player) {
     displayPlayerItems(player);
     if (player->itemAmount == 0) return;
 
-    int choice;
-    printf("Enter the number of the item to sell (0 to cancel): ");
-    scanf("%d", &choice);
+    int choice, quantity;
+    store_input("Enter the number of the item to sell (0 to cancel): ",&choice, 16, "int");
 
     if (choice < 1 || choice > player->itemAmount) {
         if (choice != 0) printf("Invalid item selection.\n");
         return;
     }
 
-    int sellPrice = player->items[choice - 1].item->price / 2;
-    player->items[choice - 1].amount--;
+    store_input("Enter the quantity to sell: ", &quantity, 16, "int");
+
+    if (quantity < 1) {
+        printf("Invalid quantity.\n");
+        return;
+    }
+
+    if(player->items[choice - 1].amount < quantity) {
+        printf("Not enough items to sell.\n");
+        return;
+    }
+
+    int sellPrice = player->items[choice - 1].item->price / 2 * quantity;
+    player->items[choice - 1].amount -= quantity;
     player->coins += sellPrice;
 
-    printf("Sold %s for %d Supcoins!\n", player->items[choice - 1].item->name, sellPrice);
+    printf("Sold %d x %s for %d Supcoins!\n",quantity, player->items[choice - 1].item->name, sellPrice);
 
     if (player->items[choice - 1].amount == 0) {
         freeItem(player->items[choice - 1].item);
-        for (int i = choice - 1; i < player->itemAmount - 1; i++) {
+        for (int i = choice - 1; i < player->itemAmount - quantity; i++) {
             player->items[i] = player->items[i + 1];
         }
-        player->itemAmount--;
+        player->itemAmount -= quantity;
     }
 }
