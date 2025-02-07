@@ -1,6 +1,6 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
-
+#include "../prototypes/player.h"
 
 void displayBattlemenu(void);
 void displaySupemonstats(Supemon *sup1, Supemon *sup2);

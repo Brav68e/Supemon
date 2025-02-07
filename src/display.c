@@ -134,7 +134,7 @@ void displayRunfailure(void){
 
 void displayForcedswitch(){
     write(1, "| Your current supemon just died, select a new one \n", 52);
-
+}
 
 
 
