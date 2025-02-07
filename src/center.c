@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
-
 #include "../prototypes/center.h"
 #include "../prototypes/input.h"
 #include "../prototypes/battle.h"
+#include "../prototypes/display.h"
 
-void display_player_supemons(Player* player){
+void display_player_supemons(Player* player) {
     printf("Your Supémons:\n");
     for (int i = 0; i < player->supemonAmount; i++) {
         Supemon* current = player->supemons[i];
@@ -16,25 +17,40 @@ void display_player_supemons(Player* player){
         printf("   HP: %d/%d\n", current->hp, current->maxHp);
     }
 
-    int options = switchPossible(player);                       // Contain the amount of options to switch on 
-    int *available = displaySupemons(player, options);          // Contain all index of available supemons
     int choice;
+    printf("Do you want to switch your main Supémon ? (0 to cancel) : ");
+    
+    if (scanf("%d", &choice) != 1) {
+        while (getchar() != '\n'); // Nettoyage du buffer
+        return;
+    }
+    
+    if (choice == 0) {
+        return;
+    }
 
-    store_input("Do you want to switch your main Supémon ? (0 to cancel) : ", &choice, 16, "int");
-    store_input("Select the new main Supémon : ", &choice, 16, "int");
+    int options = switchPossible(player); 
+    printf("Options disponibles pour le switch: %d\n", options);
 
-        if(choice == 0){
-            free(available);
-            return 0;
-        }
+    int *available = displaySupemons(player, options);
+    
+    printf("Select the new main Supémon : ");
+    if (scanf("%d", &choice) != 1) {
+        while (getchar() != '\n'); // Nettoyage du buffer
+        free(available);
+        return;
+    }
 
-        if(choice > 0 && choice <= options){
-            Supemon* tmp = player->supemons[available[choice-1]];
-            player->supemons[available[choice-1]] = player->supemons[0];
-            player->supemons[0] = tmp;
-            free(available);
-            return 1;
-        }
+    if (choice > 0 && choice <= options) {
+        Supemon* tmp = player->supemons[available[choice-1]];
+        player->supemons[available[choice-1]] = player->supemons[0];
+        player->supemons[0] = tmp;
+        printf("Main Supémon switched successfully!\n");
+    } else {
+        printf("Invalid choice. No changes made.\n");
+    }
+    
+    free(available);
 }
 
 void heal_player_supemons(Player* player) {
@@ -54,7 +70,12 @@ void supemon_center(Player* player) {
         printf("2. Heal Supémons\n");
         printf("3. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        
+        if (scanf("%d", &choice) != 1) {
+            while (getchar() != '\n'); // Nettoyage du buffer
+            printf("Invalid input. Please enter a number.\n");
+            continue;
+        }
 
         switch(choice) {
             case 1:
