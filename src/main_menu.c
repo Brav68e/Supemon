@@ -8,6 +8,7 @@
 #include "../prototypes/supemon.h"
 #include "../prototypes/player.h"
 #include "../prototypes/load.h"
+#include "../prototypes/shop.h"
 #include "../prototypes/battle.h"
 #include "../prototypes/display.h"
 #include "../prototypes/starter.h"
@@ -54,8 +55,7 @@ int main(void){
 
             case 2:
                 // Select to go to the shop
-                // shop(player);
-                printf("just 2\n");
+                ShopMenu(player);
                 break;
             case 3:
                 // Select to go to the supemon center
@@ -64,7 +64,6 @@ int main(void){
                 break;
             case 4:
                 // Leave the game
-                // leave_game(player);
                 printf("just 4\n");
                 break;
             default:
