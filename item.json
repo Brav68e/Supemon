@@ -33,10 +33,6 @@
                 {
                     "stat" : "level",
                     "value" : 1
-                },
-                {
-                    "stat" : "nextlevel",
-                    "value" : 1000
                 }
             ]
         }

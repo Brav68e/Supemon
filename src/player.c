@@ -13,10 +13,11 @@ void freePlayer(Player *player) {
         printf("supemons is NULL\n");
     } else {
         for (int i = 0; i < player->supemonAmount; i++) {
-            Supemon *s = &player->supemons[i];
+            Supemon *s = player->supemons[i];
 
             freeSupemon(s);
         }
+        free(player->supemons);             // Free the array itself
     }
 
 
@@ -54,9 +55,7 @@ Player *loadPlayer(cJSON *user){
     current_user->supemons = malloc(sizeof(Supemon) * MAX_SUPEMON);
     int i = 0;
     cJSON_ArrayForEach(supemon, supemons) {
-        Supemon *loaded = loadSupemon_data(supemon);
-        current_user->supemons[i] = *loaded;
-        free(loaded);
+        current_user->supemons[i] = loadSupemon_data(supemon);
         i++;
     }
 
@@ -103,7 +102,7 @@ cJSON *savePlayer(Player *player){
     // Create an array for supemon
     cJSON *supemons = cJSON_CreateArray();
     for(int i=0; i<player->supemonAmount; i++){
-        cJSON *supemon = saveSupemon_data(&player->supemons[i]);
+        cJSON *supemon = saveSupemon_data(player->supemons[i]);
         cJSON_AddItemToArray(supemons, supemon);
     }
     cJSON_AddItemToObject(p, "supemons", supemons);
@@ -120,3 +119,9 @@ cJSON *savePlayer(Player *player){
     
     return p;
 }
+
+
+
+
+
+
