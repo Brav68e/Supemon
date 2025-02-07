@@ -108,7 +108,6 @@ Supemon *loadSupemon_data(cJSON *supemon){
                 buff_stat->value = value->valueint;
                 j++;
             }
-        }    
         i++;
     }
     return s;
