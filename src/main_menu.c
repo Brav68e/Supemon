@@ -59,7 +59,7 @@ int main(void){
                 break;
             case 3:
                 // Select to go to the supemon center
-                display_player_supemons(player);
+                supemon_center(player);
                 break;
             case 4:
                 // Leave the game

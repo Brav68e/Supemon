@@ -5,7 +5,7 @@
 #include "../prototypes/input.h"
 #include "../prototypes/battle.h"
 
-int display_player_supemons(Player* player){
+void display_player_supemons(Player* player){
     printf("Your Supémons:\n");
     for (int i = 0; i < player->supemonAmount; i++) {
         Supemon* current = player->supemons[i];
@@ -35,4 +35,39 @@ int display_player_supemons(Player* player){
             free(available);
             return 1;
         }
+}
+
+void heal_player_supemons(Player* player) {
+    for (int i = 0; i < player->supemonAmount; i++) {
+        Supemon* current = player->supemons[i];
+        current->hp = current->maxHp;
+    }
+    printf("All Supémons have been healed to full HP!\n");
+}
+
+void supemon_center(Player* player) {
+    int choice;
+    
+    do {
+        printf("\n--- Supémon Center ---\n");
+        printf("1. Display Supémons\n");
+        printf("2. Heal Supémons\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                display_player_supemons(player);
+                break;
+            case 2:
+                heal_player_supemons(player);
+                break;
+            case 3:
+                printf("Leaving Supémon Center...\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 3);
 }
