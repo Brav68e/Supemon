@@ -6,12 +6,13 @@
 #include "../prototypes/item.h"
 #include "../prototypes/player.h"
 #include "../prototypes/input.h"
+#include "../prototypes/const.h"
 
-#define INGAME_ITEMS 10
+
 #define MAX_SHOP_ITEMS 3
 static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3};
 
-void displayShopMenu(Player *player) {
+void ShopMenu(Player *player) {
     int choice, quantity;
     do {
         write(1,"\n--- Supémon Shop ---\n",24);
@@ -24,19 +25,19 @@ void displayShopMenu(Player *player) {
         store_input("Enter your choice: ", &choice, 16, "int");
 
         switch (choice) {
-            case SHOP_BUY:
+            case 1:
                 buyItemMenu(player);
                 break;
-            case SHOP_SELL:
+            case 2:
                 sellItemMenu(player);
                 break;
-            case SHOP_EXIT:
+            case 3:
                 printf("Leaving the shop...\n\n");
                 break;
             default:
                 printf("Invalid choice. Try again.\n\n");
         }
-    } while (choice != SHOP_EXIT);
+    } while (choice != 3);
 }
 
 void displayAvailableItems() {

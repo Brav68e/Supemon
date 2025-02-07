@@ -55,7 +55,7 @@ int main(void){
             case 2:
                 // Select to go to the shop
                 // shop(player);
-                displayShopMenu(player);
+                ShopMenu(player);
                 break;
             case 3:
                 // Select to go to the supemon center
