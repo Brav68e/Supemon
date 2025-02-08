@@ -191,3 +191,17 @@ void displayMainmenu(void){
 
     write(1, menu, 240);
 }
+
+
+void displayCentermenu(void){
+
+    char *menu =
+        "+-------------------------------+\n"
+        "|         Supémon Center        |\n"
+        "|  1 - Display Supémons         |\n"
+        "|  2 - Heal Supémons            |\n"
+        "|  3 - Exit                     |\n"
+        "+-------------------------------+\n";
+
+    write(1, menu, 207);
+}

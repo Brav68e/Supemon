@@ -12,6 +12,7 @@
 #include "../prototypes/battle.h"
 #include "../prototypes/display.h"
 #include "../prototypes/starter.h"
+#include "../prototypes/center.h"
 
 
 
@@ -58,8 +59,7 @@ int main(void){
                 break;
             case 3:
                 // Select to go to the supemon center
-                // supemon_center(player);
-                printf("just 3\n");
+                supemon_center(player);
                 break;
             case 4:
                 // Leave the game
