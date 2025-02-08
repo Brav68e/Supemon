@@ -10,8 +10,8 @@
 #include "../prototypes/const.h"
 
 
-#define MAX_SHOP_ITEMS 3
-static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3};
+#define MAX_SHOP_ITEMS 10
+static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 void ShopMenu(Player *player) {
     int choice, quantity;
@@ -47,11 +47,32 @@ void displayAvailableItems() {
     }
 }
 
+void addItemToPlayer(Player *player, Item *selectedItem, int quantity) {
+    if (!selectedItem || quantity < 1) return;
+
+    for (int i = 0; i < player->itemAmount; i++) {
+        if (player->items[i].item->id == selectedItem->id) {
+            player->items[i].amount += quantity;
+            freeItem(selectedItem);
+            return;
+        }
+    }
+
+    if (player->itemAmount < INGAME_ITEMS) {
+        player->items[player->itemAmount].item = selectedItem;
+        player->items[player->itemAmount].amount = quantity;
+        player->itemAmount++;
+    } else {
+        printf("Inventory is full. Cannot add more items.\n");
+        freeItem(selectedItem);
+    }
+}
+
+
 void buyItemMenu(Player *player) {
     displayAvailableItems();
-    
-    int choice, quantity;
 
+    int choice, quantity;
     store_input("Enter the number of the item to buy (0 to cancel): ", &choice, 16, "int");
 
     if (choice < 1 || choice > MAX_SHOP_ITEMS) {
@@ -66,7 +87,6 @@ void buyItemMenu(Player *player) {
     }
 
     store_input("Enter the quantity to buy: ", &quantity, 16, "int");
-
     if (quantity < 1) {
         printf("Invalid quantity.\n");
         freeItem(selectedItem);
@@ -80,31 +100,15 @@ void buyItemMenu(Player *player) {
         return;
     }
 
-    int found = 0;
-    for (int i = 0; i < player->itemAmount; i++) {
-        if (player->items[i].item->id == selectedItem->id) {
-            player->items[i].amount += quantity;
-            found = 1;
-            break;
-        }
+    int previousItemAmount = player->itemAmount;
+
+    addItemToPlayer(player, selectedItem, quantity);
+
+    if (player->itemAmount > previousItemAmount) {
+        player->coins -= totalCost;
+        printf("Bought %d x %s for %d Supcoins!\n", quantity, selectedItem->name, totalCost);
     }
 
-    if (!found) {
-        if (player->itemAmount < INGAME_ITEMS) {
-            player->items[player->itemAmount].item = selectedItem;
-            player->items[player->itemAmount].amount = quantity;
-            player->itemAmount++;
-        } else {
-            printf("Inventory is full. Cannot add more items.\n");
-            freeItem(selectedItem);
-            return;
-        }
-    } else {
-        freeItem(selectedItem);
-    }
-
-    player->coins -= totalCost;
-    printf("Bought %d x %s for %d Supcoins!\n", quantity, selectedItem->name, totalCost);
     fflush(stdout);
 }
 

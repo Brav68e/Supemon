@@ -1,11 +1,11 @@
 {
 	"users":	[{
-			"name":	"Player1",
-			"coins":	200,
+			"name":	"Test1",
+			"coins":	20000,
 			"supemonAmount":	1,
 			"itemAmount":	1,
 			"supemons":	[{
-					"id":	5,
+					"id":	666,
 					"name":	"Flameon",
 					"level":	10,
 					"nextLevel":	100,

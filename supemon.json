@@ -110,6 +110,290 @@
                 ]
             }
             ]
+        },
+        {
+            "id": 4,
+            "name": "Flamix",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 12,
+            "maxHp": 12,
+            "atk": 1,
+            "baseAtk": 2,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 1,
+            "baseDodge": 1,
+            "accuracy": 0,
+            "baseAccuracy": 1,
+            "speed": 3,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Ember",
+                    "dmg": 3,
+                    "buffAmount": 0,
+                    "statChanges": []
+                },
+                {
+                    "name": "Ignite",
+                    "dmg": 0,
+                    "buffAmount": 2,
+                    "statChanges": [
+                        {
+                            "stat": "atk",
+                            "value": 1
+                        },
+                        {
+                            "stat": "speed",
+                            "value": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Aquail",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 10,
+            "maxHp": 10,
+            "atk": 0,
+            "baseAtk": 1,
+            "def": 1,
+            "baseDef": 2,
+            "dodge": 1,
+            "baseDodge": 2,
+            "accuracy": 0,
+            "baseAccuracy": 1,
+            "speed": 2,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Splash",
+                    "dmg": 1,
+                    "buffAmount": 0,
+                    "statChanges": []
+                },
+                {
+                    "name": "Tidal Surge",
+                    "dmg": 2,
+                    "buffAmount": 1,
+                    "statChanges": [
+                        {
+                            "stat": "dodge",
+                            "value": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Thundrok",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 9,
+            "maxHp": 9,
+            "atk": 2,
+            "baseAtk": 3,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 1,
+            "baseDodge": 1,
+            "accuracy": 1,
+            "baseAccuracy": 2,
+            "speed": 3,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Zap",
+                    "dmg": 4,
+                    "buffAmount": 0,
+                    "statChanges": []
+                },
+                {
+                    "name": "Electric Charge",
+                    "dmg": 0,
+                    "buffAmount": 2,
+                    "statChanges": [
+                        {
+                            "stat": "accuracy",
+                            "value": 1
+                        },
+                        {
+                            "stat": "atk",
+                            "value": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Terrox",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 14,
+            "maxHp": 14,
+            "atk": 1,
+            "baseAtk": 2,
+            "def": 1,
+            "baseDef": 3,
+            "dodge": 0,
+            "baseDodge": 1,
+            "accuracy": 0,
+            "baseAccuracy": 1,
+            "speed": 1,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Rock Throw",
+                    "dmg": 3,
+                    "buffAmount": 0,
+                    "statChanges": []
+                },
+                {
+                    "name": "Fortify",
+                    "dmg": 0,
+                    "buffAmount": 2,
+                    "statChanges": [
+                        {
+                            "stat": "def",
+                            "value": 2
+                        },
+                        {
+                            "stat": "hp",
+                            "value": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Breezeon",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 10,
+            "maxHp": 10,
+            "atk": 1,
+            "baseAtk": 1,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 2,
+            "baseDodge": 3,
+            "accuracy": 1,
+            "baseAccuracy": 2,
+            "speed": 4,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Gust",
+                    "dmg": 2,
+                    "buffAmount": 0,
+                    "statChanges": []
+                },
+                {
+                    "name": "Air Current",
+                    "dmg": 0,
+                    "buffAmount": 1,
+                    "statChanges": [
+                        {
+                            "stat": "speed",
+                            "value": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Venoma",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 11,
+            "maxHp": 11,
+            "atk": 2,
+            "baseAtk": 2,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 1,
+            "baseDodge": 1,
+            "accuracy": 1,
+            "baseAccuracy": 2,
+            "speed": 2,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Poison Sting",
+                    "dmg": 1,
+                    "buffAmount": 1,
+                    "statChanges": [
+                        {
+                            "stat": "hp",
+                            "value": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "Venomous Cloud",
+                    "dmg": 2,
+                    "buffAmount": 2,
+                    "statChanges": [
+                        {
+                            "stat": "atk",
+                            "value": 1
+                        },
+                        {
+                            "stat": "accuracy",
+                            "value": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Shadowin",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 9,
+            "maxHp": 9,
+            "atk": 1,
+            "baseAtk": 2,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 3,
+            "baseDodge": 4,
+            "accuracy": 1,
+            "baseAccuracy": 2,
+            "speed": 3,
+            "movesAmount": 2,
+            "moves": [
+                {
+                    "name": "Dark Slash",
+                    "dmg": 4,
+                    "buffAmount": 0,
+                    "statChanges": []
+                },
+                {
+                    "name": "Shadow Veil",
+                    "dmg": 0,
+                    "buffAmount": 2,
+                    "statChanges": [
+                        {
+                            "stat": "dodge",
+                            "value": 2
+                        },
+                        {
+                            "stat": "speed",
+                            "value": 2
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

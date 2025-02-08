@@ -11,5 +11,6 @@ void displayAvailableItems();
 void buyItemMenu(Player *player);
 void sellItemMenu(Player *player);
 void displayPlayerItems(Player *player);
+void addItemToPlayer(Player *player, Item *item, int quantity);
 
 #endif

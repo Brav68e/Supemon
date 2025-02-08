@@ -12,6 +12,7 @@
 #include "../prototypes/input.h"
 #include "../prototypes/battle.h"
 #include "../prototypes/display.h"
+#include "../prototypes/shop.h"
 
 
 
@@ -446,6 +447,15 @@ void getReward(Player *player, Supemon *enemy){
     int random = (rand() % 401) + 100;      // Random value between 100 & 500
     player->coins += random;
     getExp(player->supemons[0], random*enemy->level);
+
+    if ((rand() % 100) < 15) {              // 15% Chance of getting an item
+        int itemID = (rand() % INGAME_ITEMS) + 1;
+        Item *randomItem = loadItem(itemID);
+        if (randomItem) {
+            addItemToPlayer(player, randomItem, 1);
+            printf("You received a %s!\n", randomItem->name);
+        }
+    }
 }
 
 
@@ -490,4 +500,5 @@ void enemyLevel(Supemon *enemy, Player *player){
         getLevel(enemy, player->supemons[0]->level - 1 , 0);
     }
 
+    enemy->hp = enemy->maxHp;
 }

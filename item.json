@@ -15,7 +15,7 @@
         {
             "id" : 2,
             "name" : "Super Potion",
-            "price" : 100,
+            "price" : 300,
             "buffAmount" : 1,
             "statChanges" : [
                 {
@@ -27,12 +27,108 @@
         {
             "id" : 3,
             "name" : "Rare Candy",
-            "price" : 100,
+            "price" : 700,
             "buffAmount" : 1,
             "statChanges" : [
                 {
                     "stat" : "level",
                     "value" : 1
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Hyper Potion",
+            "price": 500,
+            "buffAmount": 1,
+            "statChanges": [
+                {
+                    "stat": "hp",
+                    "value": 20
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Max Potion",
+            "price": 1000,
+            "buffAmount": 1,
+            "statChanges": [
+                {
+                    "stat": "hp",
+                    "value": 9999
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Mega Candy",
+            "price": 2000,
+            "buffAmount": 1,
+            "statChanges": [
+                {
+                    "stat": "level",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Atk +",
+            "price": 200,
+            "buffAmount": 1,
+            "statChanges": [
+                {
+                    "stat": "atk",
+                    "value": 5
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Def +",
+            "price": 200,
+            "buffAmount": 1,
+            "statChanges": [
+                {
+                    "stat": "def",
+                    "value": 5
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Choucroute",
+            "price": 25000,
+            "buffAmount": 3,
+            "statChanges": [
+                {
+                    "stat": "hp",
+                    "value": 100000
+                },
+                {
+                    "stat": "atk",
+                    "value": 1000
+                },
+                {
+                    "stat": "level",
+                    "value": 10
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Petit Pain de la veille",
+            "price": 1500,
+            "buffAmount": 2,
+            "statChanges": [
+                {
+                    "stat": "def",
+                    "value": -5
+                },
+                {
+                    "stat": "dodge",
+                    "value": 50
                 }
             ]
         }
