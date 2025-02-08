@@ -50,6 +50,11 @@ Le programme inclut les fichiers suivants :
 - `center.h`: Gestion du Supémon Center.
 
 ## Exécution du programme
-Pour compiler et exécuter le programme, utilisez les commandes suivantes :
+
+### Accéder au dossier src :
+```bash
+cd src
+```
+### Compiler et exécuter le programme :
 ```bash
 gcc *.c -lm && ./a.out
