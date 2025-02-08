@@ -63,24 +63,30 @@ int main(void){
                 break;
             case 4:
                 // Leave the game
-                printf("just 4\n");
                 break;
             default:
                 // Handle errors
         }
     } while(choice != 4);
 
-    // Save du player
-    deleteData(player);             // If the player was existing delete his save
-    saveData(player);               // Save the current player struct
+    char save;
+
+    while(1){
+        store_input("Do you want to save your progress  ? (y/n): ", &save, 16, "str");
+
+        if(save == 'Y' || save == 'y'){
+            // Save du player
+            deleteData(player);             // If the player was existing delete his save
+            saveData(player);               // Save the current player struct
+            break;
+        } else if(save == 'N' || save == 'n'){
+            break;
+        }else {
+            write(1, "The current value is invalid\n", 29);
+        }
+    }
 
     freePlayer(player);
 
     return 1;
 }
-
-
-
-
-
-

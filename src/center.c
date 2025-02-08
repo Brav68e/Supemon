@@ -34,7 +34,6 @@ void display_player_supemons(Player* player) {
         int selected;
         store_input("", &selected, 16, "int");
         if (selected != 1) {
-            while (getchar() != '\n'); // Nettoyage du buffer
             free(available);
             return;
         }
