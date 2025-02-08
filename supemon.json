@@ -2,78 +2,110 @@
     "supemons": [
         {
             "id" : 1,
-            "name": "Flameon",
-            "level": 10,
-            "nextLevel": 100,
-            "hp": 50,
-            "maxHp": 50,
-            "atk": 15,
-            "baseAtk": 10,
-            "def": 12,
-            "baseDef": 10,
-            "dodge": 8,
-            "baseDodge": 5,
-            "accuracy": 90,
-            "baseAccuracy": 85,
-            "speed": 20,
+            "name": "Supmander",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 10,
+            "maxHp": 10,
+            "atk": 0,
+            "baseAtk": 1,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 0,
+            "baseDodge": 1,
+            "accuracy": 0,
+            "baseAccuracy": 2,
+            "speed": 1,
             "movesAmount": 2,
             "moves": [
             {
-                "name": "Fire Punch",
-                "dmg": 25,
+                "name": "Scratch",
+                "dmg": 3,
+                "buffAmount": 0,
+                "statChanges": []
+            },
+            {
+                "name": "Grawl",
+                "dmg": 0,
                 "buffAmount": 1,
                 "statChanges": [
                     {
-                    "stat": "atk",
-                    "value": 2
+                        "stat": "atk",
+                        "value": 1
                     }
                 ]
-            },
-            {
-                "name": "Flame Thrower",
-                "dmg": 40,
-                "buffAmount": 0,
-                "statChanges": []
             }
             ]
         },
         {
             "id" : 2,
-            "name": "Aqualio",
-            "level": 10,
-            "nextLevel": 100,
-            "hp": 50,
-            "maxHp": 50,
-            "atk": 15,
-            "baseAtk": 10,
-            "def": 12,
-            "baseDef": 10,
-            "dodge": 8,
-            "baseDodge": 5,
-            "accuracy": 90,
-            "baseAccuracy": 85,
-            "speed": 20,
+            "name": "Supasaur",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 9,
+            "maxHp": 9,
+            "atk": 0,
+            "baseAtk": 1,
+            "def": 0,
+            "baseDef": 1,
+            "dodge": 0,
+            "baseDodge": 3,
+            "accuracy": 0,
+            "baseAccuracy": 2,
+            "speed": 2,
             "movesAmount": 2,
             "moves": [
             {
-                "name": "Sigma Punch",
-                "dmg": 75,
+                "name": "Pound",
+                "dmg": 2,
+                "buffAmount": 0,
+                "statChanges": []
+            },
+            {
+                "name": "Foliage",
+                "dmg": 0,
                 "buffAmount": 1,
                 "statChanges": [
                     {
-                    "stat": "atk",
-                    "value": 66
+                        "stat": "dodge",
+                        "value": 1
                     }
                 ]
+            }
+            ]
+        },
+        {
+            "id" : 3,
+            "name": "Supirtle",
+            "level": 1,
+            "nextLevel": 500,
+            "hp": 11,
+            "maxHp": 11,
+            "atk": 0,
+            "baseAtk": 1,
+            "def": 0,
+            "baseDef": 2,
+            "dodge": 0,
+            "baseDodge": 2,
+            "accuracy": 0,
+            "baseAccuracy": 1,
+            "speed": 2,
+            "movesAmount": 2,
+            "moves": [
+            {
+                "name": "Pound",
+                "dmg": 2,
+                "buffAmount": 0,
+                "statChanges": []
             },
             {
-                "name": "Skibidi Thrower",
-                "dmg": 5,
+                "name": "Shell",
+                "dmg": 0,
                 "buffAmount": 1,
                 "statChanges": [
                     {
                         "stat": "def",
-                        "value": 666
+                        "value": 1
                     }
                 ]
             }
