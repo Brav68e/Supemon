@@ -28,7 +28,7 @@
             "id" : 3,
             "name" : "Rare Candy",
             "price" : 100,
-            "buffAmount" : 2,
+            "buffAmount" : 1,
             "statChanges" : [
                 {
                     "stat" : "level",

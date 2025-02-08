@@ -72,7 +72,7 @@ void battle(Player *player){
                     displaySupemonstats(enemy, player->supemons[0]);
                     (void)checkBattleEnd(player, enemy);          // Ensure the current supemon isn't dead (Fix : switching and getting finish off)
                 } else {
-                    write(1, "No Supémon available to switch!\n", 32);
+                    write(1, "No Supémon available to switch!\n", 33);
                 }
                 break;
 
@@ -340,12 +340,12 @@ void getLevel(Supemon *supemon, int level){
     for(int i=0; i<level; i++){
         supemon->level++;
         supemon->nextLevel += 1000;
-        supemon->maxHp = round(supemon->maxHp*1.3);
-        supemon->baseAtk = round(supemon->baseAtk*1.3);
-        supemon->baseDef = round(supemon->baseDef*1.3);
-        supemon->baseDodge = round(supemon->baseDodge*1.3);
-        supemon->baseAccuracy = round(supemon->baseAccuracy*1.3);
-        supemon->speed = round(supemon->speed*1.3);
+        supemon->maxHp = (rand() % 2 == 0) ? floor(supemon->maxHp * 1.3) : ceil(supemon->maxHp * 1.3);
+        supemon->baseAtk = (rand() % 2 == 0) ? floor(supemon->baseAtk * 1.3) : ceil(supemon->baseAtk * 1.3);
+        supemon->baseDef = (rand() % 2 == 0) ? floor(supemon->baseDef * 1.3) : ceil(supemon->baseDef * 1.3);
+        supemon->baseDodge = (rand() % 2 == 0) ? floor(supemon->baseDodge * 1.3) : ceil(supemon->baseDodge * 1.3);
+        supemon->baseAccuracy = (rand() % 2 == 0) ? floor(supemon->baseAccuracy * 1.3) : ceil(supemon->baseAccuracy * 1.3);
+        supemon->speed = (rand() % 2 == 0) ? floor(supemon->speed * 1.3) : ceil(supemon->speed * 1.3);
         printf("%s has leveled up! He is now level %d!\n", supemon->name, supemon->level);
     }
 }
