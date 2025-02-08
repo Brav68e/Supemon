@@ -69,17 +69,17 @@ int main(void){
         }
     } while(choice != 4);
 
-    char save;
+    char save[16];
 
     while(1){
         store_input("Do you want to save your progress  ? (y/n): ", &save, 16, "str");
 
-        if(save == 'Y' || save == 'y'){
+        if(strcmp(save, "Y") == 0 || strcmp(save, "y") == 0){
             // Save du player
             deleteData(player);             // If the player was existing delete his save
             saveData(player);               // Save the current player struct
             break;
-        } else if(save == 'N' || save == 'n'){
+        } else if(strcmp(save, "N") == 0 || strcmp(save, "n") == 0){
             break;
         }else {
             write(1, "The current value is invalid\n", 29);
