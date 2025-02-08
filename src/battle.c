@@ -23,6 +23,9 @@ void battle(Player *player){
     srand(time(NULL));
     int randomID = (rand() % INGAME_SUPEMON) + 1; 
     Supemon *enemy = loadSupemon(randomID);
+    // Set the lvl of the enemy
+    enemyLevel(enemy, player);
+
     printf("A wild %s lvl%d appear !\n", enemy->name, enemy->level);
     fflush(stdout);
     
@@ -281,7 +284,7 @@ int useItem(Player *player){
                 } else if (strcmp(buff->stat, "dodge") == 0) {
                     player->supemons[0]->dodge += buff->value;
                 } else if (strcmp(buff->stat, "level") == 0) {
-                    getLevel(player->supemons[0], buff->value);
+                    getLevel(player->supemons[0], buff->value, 1);
                 }
 
                 printf("%s applied: %s +%d\n", selectedItem->name, buff->stat, buff->value);
@@ -335,7 +338,7 @@ int switchSupemon(Player *player, int forced){
 
 
 
-void getLevel(Supemon *supemon, int level){
+void getLevel(Supemon *supemon, int level, int display){
 
     for(int i=0; i<level; i++){
         supemon->level++;
@@ -346,7 +349,9 @@ void getLevel(Supemon *supemon, int level){
         supemon->baseDodge = (rand() % 2 == 0) ? floor(supemon->baseDodge * 1.3) : ceil(supemon->baseDodge * 1.3);
         supemon->baseAccuracy = (rand() % 2 == 0) ? floor(supemon->baseAccuracy * 1.3) : ceil(supemon->baseAccuracy * 1.3);
         supemon->speed = (rand() % 2 == 0) ? floor(supemon->speed * 1.3) : ceil(supemon->speed * 1.3);
-        printf("%s has leveled up! He is now level %d!\n", supemon->name, supemon->level);
+        if(display){
+            printf("%s has leveled up! He is now level %d!\n", supemon->name, supemon->level);
+        }
     }
 }
 
@@ -359,7 +364,7 @@ void getExp(Supemon *supemon, int exp){
     // Check if the Supemon has reached the next level
     while (supemon->xp >= supemon->nextLevel) {
         supemon->xp -= supemon->nextLevel;
-        getLevel(supemon, 1);
+        getLevel(supemon, 1, 1);
     }
 }
 
@@ -470,4 +475,19 @@ void removeBuffs(Supemon *supemon){
     supemon->def = 0;
     supemon->dodge = 0;
     supemon->accuracy= 0;
+}
+
+
+
+
+void enemyLevel(Supemon *enemy, Player *player){
+
+    int boss = ((rand() % 101) < 95) ? 0 : 1;
+    if(boss){
+        getLevel(enemy, player->supemons[0]->level + 5 , 0);        // A boss is 5lvl higher
+        write(1, "Look like you're facing a boss !\n", 33);
+    }else {
+        getLevel(enemy, player->supemons[0]->level - 1 , 0);
+    }
+
 }

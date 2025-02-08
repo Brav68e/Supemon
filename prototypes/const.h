@@ -3,7 +3,7 @@
 
 
 #define INGAME_ITEMS 3
-#define INGAME_SUPEMON 2
+#define INGAME_SUPEMON 3
 #define MAX_SUPEMON 6
 
 
