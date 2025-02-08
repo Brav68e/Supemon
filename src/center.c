@@ -17,12 +17,8 @@ void display_player_supemons(Player* player) {
 
     if (player->supemonAmount > 1) {
         char choice;
-        printf("Do you want to switch your main Supémon? (y/n): ");
         
-        if (scanf(" %c", &choice) != 1) {
-            while (getchar() != '\n'); // Nettoyage du buffer
-            return;
-        }
+        store_input("Do you want to switch your main Supémon? (y/n): ", &choice, 16, "str");
 
         if (choice == 'n' || choice == 'N') {
             return;
@@ -36,7 +32,8 @@ void display_player_supemons(Player* player) {
 
         printf("Select the new main Supémon (1 to %d): ", options);
         int selected;
-        if (scanf("%d", &selected) != 1) {
+        store_input("", &selected, 16, "int");
+        if (selected != 1) {
             while (getchar() != '\n'); // Nettoyage du buffer
             free(available);
             return;
@@ -66,19 +63,10 @@ void supemon_center(Player* player) {
     int choice;
     
     do {
-        printf("\n--- Supémon Center ---\n");
-        printf("1. Display Supémons\n");
-        printf("2. Heal Supémons\n");
-        printf("3. Exit\n");
-        printf("Enter your choice: ");
+        displayCentermenu();
         
-        if (scanf("%d", &choice) != 1) {
-            while (getchar() != '\n'); // Nettoyage du buffer
-            printf("Invalid input. Please enter a number.\n");
-            continue;
-        }
+        store_input("Enter your choice: ", &choice, 16, "int");
 
-        while (getchar() != '\n'); // Nettoyage du buffer
 
         switch(choice) {
             case 1:
