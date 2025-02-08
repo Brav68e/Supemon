@@ -62,9 +62,6 @@ void addItemToPlayer(Player *player, Item *selectedItem, int quantity) {
         player->items[player->itemAmount].item = selectedItem;
         player->items[player->itemAmount].amount = quantity;
         player->itemAmount++;
-    } else {
-        printf("Inventory is full. Cannot add more items.\n");
-        freeItem(selectedItem);
     }
 }
 
@@ -81,6 +78,8 @@ void buyItemMenu(Player *player) {
     }
 
     Item *selectedItem = loadItem(shopItemIds[choice - 1]);
+    char name[32];
+    strcpy(name, selectedItem->name);
     if (!selectedItem) {
         printf("Error loading item.\n");
         return;
@@ -103,13 +102,8 @@ void buyItemMenu(Player *player) {
     int previousItemAmount = player->itemAmount;
 
     addItemToPlayer(player, selectedItem, quantity);
-
-    if (player->itemAmount > previousItemAmount) {
-        player->coins -= totalCost;
-        printf("Bought %d x %s for %d Supcoins!\n", quantity, selectedItem->name, totalCost);
-    }
-
-    fflush(stdout);
+    player->coins -= totalCost;
+    printf("Bought %d x %s for %d Supcoins!\n", quantity, name, totalCost);
 }
 
 
