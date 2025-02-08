@@ -58,7 +58,7 @@ void battle(Player *player){
                         fighting = checkBattleEnd(player, enemy);         
                         // If the fight is not over, allow the player's supemon to attack
                         if (fighting) {
-                            useMove(player->supemons[0], enemy, moveIndex);
+                            useMove(player->supemons[0], enemy, moveIndex-1);
                             displaySupemonstats(enemy, player->supemons[0]);
                             fighting = checkBattleEnd(player, enemy);
                         }
@@ -215,14 +215,14 @@ void useMove(Supemon *user, Supemon* opponent, int moveIndex){
 
     int hit = rand() % 100;
     if(hit <= successRate){
-        printf("| %s uses %s on %s\n", user->name, user->moves[moveIndex].name, opponent->name);
+        printf("| %s uses %s\n", user->name, user->moves[moveIndex].name);
         opponent->hp -= dmgDeal;
         if(opponent->hp < 0){
             opponent->hp = 0;
         }
     }else {
         // Failure
-        printf("| %s uses %s on %s... But it fails\n", user->name, user->moves[moveIndex].name, opponent->name);
+        printf("| %s uses %s... But it fails\n", user->name, user->moves[moveIndex].name);
     }
 }
 

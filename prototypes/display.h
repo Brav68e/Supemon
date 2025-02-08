@@ -19,5 +19,6 @@ void displayOldplayer(void);
 void displayStarter(void);
 void displayMainmenu(void);
 void displayCentermenu(void);
+void displayShopmenu(Player *player);
 
 #endif

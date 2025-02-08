@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "../prototypes/shop.h"
+#include "../prototypes/display.h"
 #include "../prototypes/item.h"
 #include "../prototypes/player.h"
 #include "../prototypes/input.h"
@@ -15,12 +16,7 @@ static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3};
 void ShopMenu(Player *player) {
     int choice, quantity;
     do {
-        write(1,"\n--- Supémon Shop ---\n",24);
-        write(1,"1. Buy Items\n",14);
-        write(1,"2. Sell Items\n",15);
-        write(1,"3. Exit Shop\n",14);
-        printf("\nYour current Supcoins: %d\n", player->coins);
-        fflush(stdout);
+        displayShopmenu(player);
 
         store_input("Enter your choice: ", &choice, 16, "int");
 

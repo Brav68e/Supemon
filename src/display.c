@@ -205,3 +205,18 @@ void displayCentermenu(void){
 
     write(1, menu, 207);
 }
+
+
+void displayShopmenu(Player *player){
+    char *menu =
+        "+-------------------------------+\n"
+        "|           Supémon shop        |\n"
+        "|  1 - Buy Items                |\n"
+        "|  2 - Sell Items               |\n"
+        "|  3 - Exit Shop                |\n"
+        "+-------------------------------+\n";
+
+    write(1, menu, 206);
+    printf("\nYour current Supcoins: %d\n", player->coins);
+    fflush(stdout);
+}
