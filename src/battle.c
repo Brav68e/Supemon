@@ -261,7 +261,7 @@ int useItem(Player *player){
         }
 
         // Decide to use an item
-        if(choice >= 0 && choice <= availableItem){
+        if(choice >= 0 && choice < availableItem){
             // Use item here
             Item *selectedItem = &available[choice];
 
