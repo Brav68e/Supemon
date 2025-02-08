@@ -51,7 +51,7 @@ Le programme inclut les fichiers suivants :
 
 ## Exécution du programme
 
-### Accéder au dossier src :
+### Accéder au dossier source :
 ```bash
 cd src
 ```
