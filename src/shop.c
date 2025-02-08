@@ -158,7 +158,7 @@ void sellItemMenu(Player *player) {
 
     if (player->items[choice - 1].amount == 0) {
         freeItem(player->items[choice - 1].item);
-        for (int i = choice - 1; i < player->itemAmount - quantity; i++) {
+        for (int i = choice - 1; i < player->itemAmount - 1; i++) {
             player->items[i] = player->items[i + 1];
         }
         player->itemAmount--;
