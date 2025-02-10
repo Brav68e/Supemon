@@ -216,11 +216,19 @@ void useMove(Supemon *user, Supemon* opponent, int moveIndex){
 
     int hit = rand() % 100;
     if(hit <= successRate){
+        // Damage calculation
         printf("| %s uses %s\n", user->name, user->moves[moveIndex].name);
         opponent->hp -= dmgDeal;
         if(opponent->hp < 0){
             opponent->hp = 0;
         }
+
+        // Buff application
+        for(int i=0; i<user->moves[moveIndex].buffAmount; i++){
+            Buff *buff = &user->moves[moveIndex].statChanges[i];
+            applyBuff(user, buff);
+        }
+
     }else {
         // Failure
         printf("| %s uses %s... But it fails\n", user->name, user->moves[moveIndex].name);
@@ -271,22 +279,7 @@ int useItem(Player *player){
                 Buff *buff = &selectedItem->statChanges[j];
 
                 // Modify Pokémon stats based on buff type
-                if (strcmp(buff->stat, "hp") == 0) {
-                    player->supemons[0]->hp += buff->value;
-                    if (player->supemons[0]->hp > player->supemons[0]->maxHp) {
-                        player->supemons[0]->hp = player->supemons[0]->maxHp;
-                    }
-                } else if (strcmp(buff->stat, "atk") == 0) {
-                    player->supemons[0]->atk += buff->value;
-                } else if (strcmp(buff->stat, "def") == 0) {
-                    player->supemons[0]->def += buff->value;
-                } else if (strcmp(buff->stat, "accuracy") == 0) {
-                    player->supemons[0]->accuracy += buff->value;
-                } else if (strcmp(buff->stat, "dodge") == 0) {
-                    player->supemons[0]->dodge += buff->value;
-                } else if (strcmp(buff->stat, "level") == 0) {
-                    getLevel(player->supemons[0], buff->value, 1);
-                }
+                applyBuff(player->supemons[0], buff);
 
                 printf("%s applied: %s +%d\n", selectedItem->name, buff->stat, buff->value);
             }
@@ -501,4 +494,28 @@ void enemyLevel(Supemon *enemy, Player *player){
     }
 
     enemy->hp = enemy->maxHp;
+}
+
+
+
+void applyBuff(Supemon *supemon, Buff *buff){
+
+    // Modify Pokémon stats based on buff type
+    if (strcmp(buff->stat, "hp") == 0) {
+        supemon->hp += buff->value;
+        if (supemon->hp > supemon->maxHp) {
+            supemon->hp = supemon->maxHp;
+        }
+    } else if (strcmp(buff->stat, "atk") == 0) {
+        supemon->atk += buff->value;
+    } else if (strcmp(buff->stat, "def") == 0) {
+        supemon->def += buff->value;
+    } else if (strcmp(buff->stat, "accuracy") == 0) {
+        supemon->accuracy += buff->value;
+    } else if (strcmp(buff->stat, "dodge") == 0) {
+        supemon->dodge += buff->value;
+    } else if (strcmp(buff->stat, "level") == 0) {
+        getLevel(supemon, buff->value, 1);
+    }
+
 }

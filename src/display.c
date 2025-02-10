@@ -27,7 +27,7 @@ void displayBattlemenu(void){
 
 void displaySupemonstats(Supemon *sup1, Supemon *sup2){
 
-    printf("%s (enemy)\n", sup1->name);
+    printf("%s lvl%d (enemy)\n", sup1->name, sup1->level);
     printf("----------------------\n");
     printf("HP: %d/%d      Lvl: %d\n", sup1->hp, sup1->maxHp, sup1->level);
     printf("Atk: %d        Def: %d\n", sup1->baseAtk, sup1->baseDef);
@@ -35,11 +35,11 @@ void displaySupemonstats(Supemon *sup1, Supemon *sup2){
 
     printf("----------------------\n");
 
-    printf("%s (you)\n", sup2->name);
+    printf("%s lvl%d (you)\n", sup2->name, sup2->level);
     printf("----------------------\n");
     printf("HP: %d/%d      Lvl: %d\n", sup2->hp, sup2->maxHp, sup2->level);
-    printf("Atk: %d        Def: %d\n", sup2->baseAtk, sup2->baseDef);
-    printf("Acc: %d        Eva: %d\n", sup2->baseAccuracy, sup2->baseDodge);
+    printf("Atk: %d (+%d)       Def: %d (+%d)\n", sup2->baseAtk, sup2->atk, sup2->baseDef, sup2->def);
+    printf("Acc: %d (+%d)       Eva: %d (+%d)\n", sup2->baseAccuracy, sup2->accuracy, sup2->baseDodge, sup2->dodge);
 }
 
 

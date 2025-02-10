@@ -17,5 +17,6 @@ void getReward(Player *player, Supemon *enemy);
 int runAway(Player *player, Supemon *enemy);
 void removeBuffs(Supemon *supemon);
 void enemyLevel(Supemon *enemy, Player *player);
+void applyBuff(Supemon *supemon, Buff *buff);
 
 #endif
