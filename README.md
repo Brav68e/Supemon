@@ -7,8 +7,8 @@ acheter ou vendre des objets, et visiter le Supémon Center pour soigner leurs S
 Ce projet permet aux joueurs de créer un personnage, choisir un Supémon de départ, et sauvegarder leur progression.
 
 ## Fonctionnalités
-[Documentation Utilisateur](doc/User_doc.md)
-[Documentation Développeur](doc/Tech_doc.md)
+1. [Documentation Utilisateur](doc/User_doc.md)
+2. [Documentation Développeur](doc/Tech_doc.md)
 
 ## Exécution du programme
 
