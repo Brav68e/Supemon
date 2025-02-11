@@ -10,7 +10,7 @@
 Item *loadItem(int researchID){
 
     // Open the save file
-	cJSON *json = loadJSON("../item.json");
+	cJSON *json = loadJSON("../data/item.json");
 
 	cJSON *items_array = cJSON_GetObjectItem(json, "items");
     if (!items_array) {

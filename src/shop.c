@@ -10,8 +10,8 @@
 #include "../prototypes/const.h"
 
 
-#define MAX_SHOP_ITEMS 10
-static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+#define MAX_SHOP_ITEMS 11
+static int shopItemIds[MAX_SHOP_ITEMS] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
 void ShopMenu(Player *player) {
     int choice, quantity;

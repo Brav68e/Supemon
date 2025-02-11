@@ -12,7 +12,7 @@
 Supemon *loadSupemon(int researchID){
 
     // Open the save file
-	cJSON *json = loadJSON("../supemon.json");
+	cJSON *json = loadJSON("../data/supemon.json");
 
 	cJSON *supemons_array = cJSON_GetObjectItem(json, "supemons");
     if (!supemons_array) {

@@ -13,7 +13,7 @@
 Player *loadSave(char username[32]){
 
 	// Open the save file
-	cJSON *json = loadJSON("../data.json");
+	cJSON *json = loadJSON("../data/data.json");
 
 	cJSON *users_array = cJSON_GetObjectItem(json, "users");
     if (!cJSON_IsArray(users_array)) {
@@ -45,7 +45,7 @@ void deleteData(Player *player){
 	// If the save exist, delete it
 	if(saveExist(player)){
 		// Read data and store them
-		cJSON *data = loadJSON("../data.json");
+		cJSON *data = loadJSON("../data/data.json");
 		cJSON *users_array = cJSON_GetObjectItem(data, "users");
 
 		if (!cJSON_IsArray(users_array)) {
@@ -66,7 +66,7 @@ void deleteData(Player *player){
 		}
 
 		// Update the data.json
-		FILE *file = fopen("../data.json", "w");
+		FILE *file = fopen("../data/data.json", "w");
 		if(file){
 			char *updatedJSON = cJSON_Print(data);
 			fprintf(file, "%s", updatedJSON);
@@ -86,7 +86,7 @@ void deleteData(Player *player){
 void saveData(Player *player){
 
 	// Open the save file
-	cJSON *json = loadJSON("../data.json");
+	cJSON *json = loadJSON("../data/data.json");
 	if (!json) {
         printf("Failed to load JSON file.\n");
         return;
@@ -110,7 +110,7 @@ void saveData(Player *player){
 	cJSON_AddItemToArray(users_array, playerdata);
 
 	// Rewrite the data in the file
-	FILE *file = fopen("../data.json", "w");
+	FILE *file = fopen("../data/data.json", "w");
 	if(file == NULL){
 		printf("Failed to load save file.\n");
 		cJSON_Delete(json);
@@ -131,7 +131,7 @@ void saveData(Player *player){
 int saveExist(Player *player){
 
 	// Open the save file
-	cJSON *json = loadJSON("../data.json");
+	cJSON *json = loadJSON("../data/data.json");
 
 	cJSON *users = cJSON_GetObjectItem(json, "users");
     if (!cJSON_IsArray(users)) {

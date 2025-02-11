@@ -21,15 +21,15 @@ void displayBattlemenu(void){
     "|  5 - Run away            |\n"
     "+--------------------------+\n\n";
 
-    write(1, msg, 232);
+    write(1, msg, 233);
 }
 
 
 void displaySupemonstats(Supemon *sup1, Supemon *sup2){
 
-    printf("%s lvl%d (enemy)\n", sup1->name, sup1->level);
+    printf("\n%s lvl%d (enemy)\n", sup1->name, sup1->level);
     printf("----------------------\n");
-    printf("HP: %d/%d      Lvl: %d\n", sup1->hp, sup1->maxHp, sup1->level);
+    printf("HP: %d/%d           Lvl: %d\n", sup1->hp, sup1->maxHp, sup1->level);
     printf("Atk: %d (+%d)       Def: %d (+%d)\n", sup1->baseAtk, sup1->atk, sup1->baseDef, sup1->def);
     printf("Acc: %d (+%d)       Eva: %d (+%d)\n", sup1->baseAccuracy, sup1->accuracy, sup1->baseDodge, sup1->dodge);
 
@@ -37,9 +37,9 @@ void displaySupemonstats(Supemon *sup1, Supemon *sup2){
 
     printf("%s lvl%d (you)\n", sup2->name, sup2->level);
     printf("----------------------\n");
-    printf("HP: %d/%d      Lvl: %d\n", sup2->hp, sup2->maxHp, sup2->level);
+    printf("HP: %d/%d           Lvl: %d\n", sup2->hp, sup2->maxHp, sup2->level);
     printf("Atk: %d (+%d)       Def: %d (+%d)\n", sup2->baseAtk, sup2->atk, sup2->baseDef, sup2->def);
-    printf("Acc: %d (+%d)       Eva: %d (+%d)\n", sup2->baseAccuracy, sup2->accuracy, sup2->baseDodge, sup2->dodge);
+    printf("Acc: %d (+%d)       Eva: %d (+%d)\n\n", sup2->baseAccuracy, sup2->accuracy, sup2->baseDodge, sup2->dodge);
 }
 
 

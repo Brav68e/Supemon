@@ -131,6 +131,22 @@
                     "value": 50
                 }
             ]
+        },
+        {
+            "id": 11,
+            "name": "KFC du mardi midi",
+            "price": 500,
+            "buffAmount": 2,
+            "statChanges": [
+                {
+                    "stat": "atk",
+                    "value": 2
+                },
+                {
+                    "stat": "speed",
+                    "value": -3
+                }
+            ]
         }
     ]
 }
